@@ -1,0 +1,39 @@
+<html lang="en">
+  <head>
+      <% include ../views/partials/head %>
+  </head>
+  <body>
+    <header>
+      <%# include ../views/partials/header %>
+    </header>
+
+    <h1>Select An API Call:</h1>
+
+    <button type="button" onclick="location.href =
+    'https://www.se.rit.edu/~ack7881/AlexDevAPI/API.php?function=getDevice&id=1';">getDevice</button>
+    <br>
+    <br>
+    <button type="button" onclick="location.href =
+    'https://www.se.rit.edu/~ack7881/AlexDevAPI/API.php?function=addDevice&name=iPad&condition=poor';">addDevice</button>
+    <br>
+    <br>
+    <button type="button" onclick="location.href =
+    'https://www.se.rit.edu/~ack7881/AlexDevAPI/API.php?function=addClassroom&building=1&room=1550&capacity=20';">addClassroom</button>
+    <br>
+    <br>
+    <button type="button" onclick="location.href =
+    'https://www.se.rit.edu/~ack7881/AlexDevAPI/API.php?function=reserveClassroom&building=1&room=1650&day=Monday&semester=2015&timeslot=1&length=2&class=334';">reserveClassroom</button>
+    <br>
+    <br>
+    <button type="button" onclick="location.href =
+    'https://www.se.rit.edu/~ack7881/AlexDevAPI/API.php?function=getClassroom&id=1';">getClassroom</button>
+    <br>
+    <br>
+    <button type="button" onclick="location.href =
+    'https://www.se.rit.edu/~ack7881/AlexDevAPI/API.php?function=searchClassrooms&id=1';">searchClassrooms</button>
+
+    <footer>
+      <%# include ../views/partials/footer %>
+    </footer>
+  </body>
+</html>
