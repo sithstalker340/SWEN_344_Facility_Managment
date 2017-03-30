@@ -32,6 +32,14 @@
     </div>
 
     <div>
+      <h3>Remove Device</h3>
+      <form method="post" action="<%=dbUrl%>function=deleteDevice">
+        Device ID: <input type="text" name="uid" placeholder="Device ID"><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+    <div>
       <h3>Get All Classrooms</h3>
       <button type="button" onclick="location.href = '<%=dbUrl%>function=getClassrooms';">getClassrooms</button>
       <br><br>
@@ -49,6 +57,14 @@
         Building #: <input type="number" name="building"><br>
         Room #: <input type="number" name="room"><br>
         Capacity: <input type="number" name="capacity"><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+    <div>
+      <h3>Remove Classroom</h3>
+      <form method="post" action="<%=dbUrl%>function=deleteClassroom">
+        Classroom ID: <input type="text" name="id" placeholder="Classroom ID"><br>
         <input type="submit" value="Submit">
       </form>
     </div>
