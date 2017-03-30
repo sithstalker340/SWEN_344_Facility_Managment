@@ -1,4 +1,4 @@
-<% var dbUrl = "https://www.se.rit.edu/~ack7881/AlexDevAPI/API.php?team=facility_management&"; %>
+<% var dbUrl = "https://www.se.rit.edu/~axv3658/API/API.php?team=facility_management&"; %>
 <html lang="en">
   <head>
       <% include ../views/partials/head %>
@@ -10,28 +10,57 @@
 
     <h1>Select An API Call:</h1>
 
-    <button type="button" onclick="location.href =
-    '<%=dbUrl%>function=getDevice&id=1';">getDevice</button>
-    <br>
-    <br>
-    <button type="button" onclick="location.href =
-    '<%=dbUrl%>function=addDevice&name=iPad&condition=poor';">addDevice</button>
-    <br>
-    <br>
-    <button type="button" onclick="location.href =
-    '<%=dbUrl%>function=addClassroom&building=1&room=1550&capacity=20';">addClassroom</button>
-    <br>
-    <br>
-    <button type="button" onclick="location.href =
-    '<%=dbUrl%>function=reserveClassroom&building=1&room=1650&day=Monday&semester=2015&timeslot=1&length=2&class=334';">reserveClassroom</button>
-    <br>
-    <br>
-    <button type="button" onclick="location.href =
-    '<%=dbUrl%>function=getClassroom&id=1';">getClassroom</button>
-    <br>
-    <br>
-    <button type="button" onclick="location.href =
-    '<%=dbUrl%>function=searchClassrooms&id=1';">searchClassrooms</button>
+    <div>
+      <h3>Get All Devices</h3>
+      <button type="button" onclick="location.href = '<%=dbUrl%>function=getDevices';">getDevices</button>
+      <br><br>
+    </div>
+
+    <div>
+      <h3>Get Single Device</h3>
+      <button type="button" onclick="location.href = '<%=dbUrl%>function=getDevice&id=' + document.getElementById('device_id').value;">getDevice</button> 
+      <input type="text" placeholder="Device ID" id="device_id">
+    </div>
+
+    <div>
+      <h3>Add Device</h3>
+      <form method="post" action="<%=dbUrl%>function=addDevice">
+        Device Name: <input type="text" name="name"><br>
+        Condition: <input type="text" name="condition"><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+    <div>
+      <h3>Get All Classrooms</h3>
+      <button type="button" onclick="location.href = '<%=dbUrl%>function=getClassrooms';">getClassrooms</button>
+      <br><br>
+    </div>
+
+    <div>
+      <h3>Get Single Classroom</h3>
+      <button type="button" onclick="location.href = '<%=dbUrl%>function=getClassroom&id=' + document.getElementById('classroom_id').value;">getClassroom</button> 
+      <input type="text" placeholder="Classroom ID" id="classroom_id">
+    </div>
+
+    <div>
+      <h3>Add Classroom</h3>
+      <form method="post" action="<%=dbUrl%>function=addClassroom">
+        Building #: <input type="number" name="building"><br>
+        Room #: <input type="number" name="room"><br>
+        Capacity: <input type="number" name="capacity"><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+    <div>
+      <button type="button" onclick="location.href = '<%=dbUrl%>function=reserveClassroom&building=1&room=1650&day=Monday&semester=2015&timeslot=1&length=2&class=334';">reserveClassroom</button>
+      <br><br>
+    </div>
+
+    <div>
+      <button type="button" onclick="location.href = '<%=dbUrl%>function=searchClassrooms&id=1';">searchClassrooms</button>
+    </div>
 
     <footer>
       <%# include ../views/partials/footer %>
