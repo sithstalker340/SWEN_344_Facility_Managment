@@ -1,3 +1,4 @@
+<% var dbUrl = "https://www.se.rit.edu/~ack7881/AlexDevAPI/API.php?team=facility_management&"; %>
 <html lang="en">
   <head>
       <% include ../views/partials/head %>
@@ -10,27 +11,27 @@
     <h1>Select An API Call:</h1>
 
     <button type="button" onclick="location.href =
-    'https://www.se.rit.edu/~ack7881/AlexDevAPI/API.php?function=getDevice&id=1';">getDevice</button>
+    '<%=dbUrl%>function=getDevice&id=1';">getDevice</button>
     <br>
     <br>
     <button type="button" onclick="location.href =
-    'https://www.se.rit.edu/~ack7881/AlexDevAPI/API.php?function=addDevice&name=iPad&condition=poor';">addDevice</button>
+    '<%=dbUrl%>function=addDevice&name=iPad&condition=poor';">addDevice</button>
     <br>
     <br>
     <button type="button" onclick="location.href =
-    'https://www.se.rit.edu/~ack7881/AlexDevAPI/API.php?function=addClassroom&building=1&room=1550&capacity=20';">addClassroom</button>
+    '<%=dbUrl%>function=addClassroom&building=1&room=1550&capacity=20';">addClassroom</button>
     <br>
     <br>
     <button type="button" onclick="location.href =
-    'https://www.se.rit.edu/~ack7881/AlexDevAPI/API.php?function=reserveClassroom&building=1&room=1650&day=Monday&semester=2015&timeslot=1&length=2&class=334';">reserveClassroom</button>
+    '<%=dbUrl%>function=reserveClassroom&building=1&room=1650&day=Monday&semester=2015&timeslot=1&length=2&class=334';">reserveClassroom</button>
     <br>
     <br>
     <button type="button" onclick="location.href =
-    'https://www.se.rit.edu/~ack7881/AlexDevAPI/API.php?function=getClassroom&id=1';">getClassroom</button>
+    '<%=dbUrl%>function=getClassroom&id=1';">getClassroom</button>
     <br>
     <br>
     <button type="button" onclick="location.href =
-    'https://www.se.rit.edu/~ack7881/AlexDevAPI/API.php?function=searchClassrooms&id=1';">searchClassrooms</button>
+    '<%=dbUrl%>function=searchClassrooms&id=1';">searchClassrooms</button>
 
     <footer>
       <%# include ../views/partials/footer %>
