@@ -18,7 +18,7 @@
 
     <div>
       <h3>Get Single Device</h3>
-      <button type="button" onclick="location.href = '<%=dbUrl%>function=getDevice&id=' + document.getElementById('device_id').value;">getDevice</button> 
+      <button type="button" onclick="location.href = '<%=dbUrl%>function=getDevice&id=' + document.getElementById('device_id').value;">getDevice</button>
       <input type="text" placeholder="Device ID" id="device_id">
     </div>
 
@@ -39,7 +39,7 @@
 
     <div>
       <h3>Get Single Classroom</h3>
-      <button type="button" onclick="location.href = '<%=dbUrl%>function=getClassroom&id=' + document.getElementById('classroom_id').value;">getClassroom</button> 
+      <button type="button" onclick="location.href = '<%=dbUrl%>function=getClassroom&id=' + document.getElementById('classroom_id').value;">getClassroom</button>
       <input type="text" placeholder="Classroom ID" id="classroom_id">
     </div>
 
@@ -54,12 +54,24 @@
     </div>
 
     <div>
-      <button type="button" onclick="location.href = '<%=dbUrl%>function=reserveClassroom&building=1&room=1650&day=Monday&semester=2015&timeslot=1&length=2&class=334';">reserveClassroom</button>
+      <h3>Reserve Classroom</h3>
+      <form method="post" action="<%=dbUrl%>function=reserveClassroom">
+        Building #: <input type="number" name="building"><br>
+        Room #: <input type="number" name="room"><br>
+        Day: <input type="text" name="day"><br>
+        Semester: <input type="text" name="semester"><br>
+        Timeslot: <input type="number" name="timeslot"><br>
+        Duration: <input type="number" name="length"><br>
+        Class: <input type="text" name="class"><br>
+        <input type="submit" value="Submit">
+      </form>
       <br><br>
     </div>
 
     <div>
-      <button type="button" onclick="location.href = '<%=dbUrl%>function=searchClassrooms&id=1';">searchClassrooms</button>
+      <h3>Search Classrooms</h3>
+      <button type="button" onclick="location.href = '<%=dbUrl%>function=getClassrooms&id=' + document.getElementById('class_id').value;">searchClassrooms</button>
+      <input type="text" placeholder="Device ID" id="class_id">
     </div>
 
     <footer>
