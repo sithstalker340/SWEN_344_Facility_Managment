@@ -32,6 +32,18 @@
     </div>
 
     <div>
+      <h3>Update Device</h3>
+      <form method="post" action="<%=dbUrl%>function=updateDevice">
+        Device ID: <input type="number" name="id"><br>
+        Device Name: <input type="text" name="name"><br>
+        Condition: <input type="text" name="condition"><br>
+        Check Out Date: <input type="text" name="checkoutDate"><br>
+        User ID: <input type="number" name="userId"><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+    <div>
       <h3>Remove Device</h3>
       <form method="post" action="<%=dbUrl%>function=deleteDevice">
         Device ID: <input type="text" name="uid" placeholder="Device ID"><br>
@@ -54,6 +66,17 @@
     <div>
       <h3>Add Classroom</h3>
       <form method="post" action="<%=dbUrl%>function=addClassroom">
+        Building #: <input type="number" name="building"><br>
+        Room #: <input type="number" name="room"><br>
+        Capacity: <input type="number" name="capacity"><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+    <div>
+      <h3>Update Classroom</h3>
+      <form method="post" action="<%=dbUrl%>function=updateClassroom">
+        Classroom ID: <input type="number" name="id"><br>
         Building #: <input type="number" name="building"><br>
         Room #: <input type="number" name="room"><br>
         Capacity: <input type="number" name="capacity"><br>
