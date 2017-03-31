@@ -12,14 +12,21 @@
 
     <div>
       <h3>Get All Devices</h3>
-      <button type="button" onclick="location.href = '<%=dbUrl%>function=getDevices';">getDevices</button>
-      <br><br>
+      <form method="get" action='<%=dbUrl%>'>
+        <input type="hidden" name="function" value="getDevices">
+        <input type="hidden" name="team" value="facility_management">
+        <input type="submit" value="Submit">
+      </form>
     </div>
 
     <div>
       <h3>Get Single Device</h3>
-      <button type="button" onclick="location.href = '<%=dbUrl%>function=getDevice&id=' + document.getElementById('device_id').value;">getDevice</button>
-      <input type="text" placeholder="Device ID" id="device_id">
+      <form method="get" action='<%=dbUrl%>'>
+        <input type="hidden" name="function" value="getDevice">
+        <input type="hidden" name="team" value="facility_management">
+        Device ID: <input type="number" name="id">
+        <input type="submit" value="Submit">
+      </form>
     </div>
 
     <div>
@@ -46,7 +53,7 @@
     <div>
       <h3>Remove Device</h3>
       <form method="post" action="<%=dbUrl%>function=deleteDevice">
-        Device ID: <input type="text" name="uid" placeholder="Device ID"><br>
+        Device ID: <input type="text" name="uid"><br>
         <input type="submit" value="Submit">
       </form>
     </div>
@@ -59,8 +66,12 @@
 
     <div>
       <h3>Get Single Classroom</h3>
-      <button type="button" onclick="location.href = '<%=dbUrl%>function=getClassroom&id=' + document.getElementById('classroom_id').value;">getClassroom</button>
-      <input type="text" placeholder="Classroom ID" id="classroom_id">
+      <form method="get" action='<%=dbUrl%>'>
+        <input type="hidden" name="function" value="getClassroom">
+        <input type="hidden" name="team" value="facility_management">
+        Classroom ID: <input type="number" name="id">
+        <input type="submit" value="Submit">
+      </form>
     </div>
 
     <div>
@@ -87,30 +98,34 @@
     <div>
       <h3>Remove Classroom</h3>
       <form method="post" action="<%=dbUrl%>function=deleteClassroom">
-        Classroom ID: <input type="text" name="id" placeholder="Classroom ID"><br>
+        Classroom ID: <input type="text" name="id"><br>
         <input type="submit" value="Submit">
       </form>
     </div>
 
     <div>
-      <button type="button" onclick="location.href = '<%=dbUrl%>function=reserveClassroom&building=1&room=1650&day=Monday&semester=2015&timeslot=1&length=2&class=334';">reserveClassroom</button>
       <h3>Reserve Classroom</h3>
       <form method="post" action="<%=dbUrl%>function=reserveClassroom">
-        Building #: <input type="number" name="building"><br>
-        Room #: <input type="number" name="room"><br>
+        Classroom ID: <input type="number" name="id"><br>
         Day: <input type="text" name="day"><br>
-        Semester: <input type="text" name="semester"><br>
+        Section: <input type="text" name="section"><br>
         Timeslot: <input type="number" name="timeslot"><br>
         Duration: <input type="number" name="length"><br>
-        Class: <input type="text" name="class"><br>
         <input type="submit" value="Submit">
       </form>
     </div>
 
     <div>
       <h3>Search Classrooms</h3>
-      <button type="button" onclick="location.href = '<%=dbUrl%>function=getClassrooms&id=' + document.getElementById('class_id').value;">searchClassrooms</button>
-      <input type="text" placeholder="Classroom ID" id="class_id">
+      <form method="get" action="<%=dbUrl%>">
+        <input type="hidden" name="function" value="searchClassrooms">
+        <input type="hidden" name="team" value="facility_management">
+        Day: <input type="text" name="day"><br>
+        Semester: <input type="text" name="semester"><br>
+        Length: <input type="number" name="length"><br>
+        Size: <input type="number" name="size"><br>
+        <input type="submit" value="Submit">
+      </form>
     </div>
 
     <footer>
