@@ -1,0 +1,120 @@
+<% var dbUrl = "https://www.se.rit.edu/~axv3658/API/API.php?team=facility_management&"; %>
+<html lang="en">
+  <head>
+      <% include ../views/partials/head %>
+  </head>
+  <body>
+    <header>
+      <%# include ../views/partials/header %>
+    </header>
+
+    <h1>Select An API Call:</h1>
+
+    <div>
+      <h3>Get All Devices</h3>
+      <button type="button" onclick="location.href = '<%=dbUrl%>function=getDevices';">getDevices</button>
+      <br><br>
+    </div>
+
+    <div>
+      <h3>Get Single Device</h3>
+      <button type="button" onclick="location.href = '<%=dbUrl%>function=getDevice&id=' + document.getElementById('device_id').value;">getDevice</button>
+      <input type="text" placeholder="Device ID" id="device_id">
+    </div>
+
+    <div>
+      <h3>Add Device</h3>
+      <form method="post" action="<%=dbUrl%>function=addDevice">
+        Device Name: <input type="text" name="name"><br>
+        Condition: <input type="text" name="condition"><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+    <div>
+      <h3>Update Device</h3>
+      <form method="post" action="<%=dbUrl%>function=updateDevice">
+        Device ID: <input type="number" name="id"><br>
+        Device Name: <input type="text" name="name"><br>
+        Condition: <input type="text" name="condition"><br>
+        Check Out Date: <input type="text" name="checkoutDate"><br>
+        User ID: <input type="number" name="userId"><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+    <div>
+      <h3>Remove Device</h3>
+      <form method="post" action="<%=dbUrl%>function=deleteDevice">
+        Device ID: <input type="text" name="uid" placeholder="Device ID"><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+    <div>
+      <h3>Get All Classrooms</h3>
+      <button type="button" onclick="location.href = '<%=dbUrl%>function=getClassrooms';">getClassrooms</button>
+      <br><br>
+    </div>
+
+    <div>
+      <h3>Get Single Classroom</h3>
+      <button type="button" onclick="location.href = '<%=dbUrl%>function=getClassroom&id=' + document.getElementById('classroom_id').value;">getClassroom</button>
+      <input type="text" placeholder="Classroom ID" id="classroom_id">
+    </div>
+
+    <div>
+      <h3>Add Classroom</h3>
+      <form method="post" action="<%=dbUrl%>function=addClassroom">
+        Building #: <input type="number" name="building"><br>
+        Room #: <input type="number" name="room"><br>
+        Capacity: <input type="number" name="capacity"><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+    <div>
+      <h3>Update Classroom</h3>
+      <form method="post" action="<%=dbUrl%>function=updateClassroom">
+        Classroom ID: <input type="number" name="id"><br>
+        Building #: <input type="number" name="building"><br>
+        Room #: <input type="number" name="room"><br>
+        Capacity: <input type="number" name="capacity"><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+    <div>
+      <h3>Remove Classroom</h3>
+      <form method="post" action="<%=dbUrl%>function=deleteClassroom">
+        Classroom ID: <input type="text" name="id" placeholder="Classroom ID"><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+    <div>
+      <button type="button" onclick="location.href = '<%=dbUrl%>function=reserveClassroom&building=1&room=1650&day=Monday&semester=2015&timeslot=1&length=2&class=334';">reserveClassroom</button>
+      <h3>Reserve Classroom</h3>
+      <form method="post" action="<%=dbUrl%>function=reserveClassroom">
+        Building #: <input type="number" name="building"><br>
+        Room #: <input type="number" name="room"><br>
+        Day: <input type="text" name="day"><br>
+        Semester: <input type="text" name="semester"><br>
+        Timeslot: <input type="number" name="timeslot"><br>
+        Duration: <input type="number" name="length"><br>
+        Class: <input type="text" name="class"><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+    <div>
+      <h3>Search Classrooms</h3>
+      <button type="button" onclick="location.href = '<%=dbUrl%>function=getClassrooms&id=' + document.getElementById('class_id').value;">searchClassrooms</button>
+      <input type="text" placeholder="Classroom ID" id="class_id">
+    </div>
+
+    <footer>
+      <%# include ../views/partials/footer %>
+    </footer>
+  </body>
+</html>
