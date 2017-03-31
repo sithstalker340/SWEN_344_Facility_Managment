@@ -46,15 +46,14 @@ describe('updateDevice', function() {
     //$_POST["id"], $_POST["condition"], $_POST["checkoutDate"], $_POST["name"], $_POST["userId"
     describe('test3', function() {
         it('should update device with uid:1, condition:good, name:Phone', function (done) {
-            request.post({url:base_url+updateDevice, form: {uid:1, condition:'good', name:'Iphone'}}, function (err, res, body){
+            request.post({url:base_url+updateDevice, form: {id:1, condition:'good', name:'Iphone'}}, function (err, res, body){
                 expect(body).to.equal('{}');
                 expect(res.statusCode).to.equal(200);
-                var updateDevice = request.get(base_url + getDevice + '&id=1', function (err, res, body) {
+                request.get(base_url + getDevice + '&id=1', function (err, res, body) {
                     var classroom = JSON.parse(res.body);
-                    return classroom;
+                    expect(classroom['CONDITION']).to.equal('good');
+                    expect(classroom['NAME']).to.equal('Iphone');
                 });
-                expect(updateDevice['condition']).to.equal('good');
-                expect(updateDevice['name']).to.equal('Iphone');
                 done();
             });
         });
@@ -112,11 +111,13 @@ describe('getDevice', function() {
         it('Should get a device with id =1', function (done) {
             request.get(base_url + getDevice + '&id=1', function (err, res, body) {
                 //expect(res.statusCode).to.equal(200);
-                //console.log(JSON.parse(res.body));
+                console.log(JSON.parse(res.body));
+
                 var classroom = JSON.parse(res.body);
+                console.log(classroom['CONDITION']);
                 expect(classroom['ID']).to.equal(1);
-                expect(classroom['NAME']).to.equal("Alex\'s device");
-                expect(classroom['USER_ID']).to.equal(5);
+                expect(classroom['NAME']).to.equal('Iphone');
+                expect(classroom['CONDITION']).to.equal('good');
                 done();
             });
         });
@@ -178,69 +179,108 @@ describe('addDevice', function() {
 });
 
 
-//describe('deleteDevice', function() {
-//    describe('test1', function() {
-//        it('should return false for no parameter', function (done) {
-//            request.post({url:base_url+deleteDevice, form: {}}, function (err, res, body){
-//                expect(res.statusCode).to.equal(200);
-//                expect(body).to.equal('');
-//                done();
-//            });
-//        });
-//    } );
-//    describe('test2', function() {
-//        it('should return 500 if system delete a device that doesn exist', function (done) {
-//            request.post({url:base_url+deleteDevice, form: {id:11111111}}, function (err, res, body){
-//                expect(res.statusCode).to.equal(500);
-//                //expect(body).to.equal('');
-//                done();
-//            });
-//        });
-//    });
-//    describe('test3', function() {
-//        it('should delete device with id=1', function (done) {
-//            request.post({url:base_url+deleteDevice, form: {id:1}}, function (err, res, body){
-//                expect(res.statusCode).to.equal(200);
-//                expect(body).to.equal('');
-//                done();
-//            });
-//        });
-//    });
-    //describe('test4', function() {
-    //    it('should return false be with only parameter name:phone', function (done) {
-    //        request.post({url:base_url+addDevice, form: {name:'phone'}}, function (err, res, body){
-    //            expect(JSON.parse(body)).to.equal(false);
-    //            done();
-    //        });
-    //    });
-    //});
-    //describe('test5', function() {
-    //    it('should return false be with only parameter condition:good', function (done) {
-    //        request.post({url:base_url+addDevice, form: {condition:'good'}}, function (err, res, body){
-    //            expect(JSON.parse(body)).to.equal(false);
-    //            done();
-    //        });
-    //    });
-    //});
+describe('deleteDevice', function() {
+    describe('test1', function() {
+        it('should return false for no parameter', function (done) {
+            request.post({url:base_url+deleteDevice, form: {}}, function (err, res, body){
+                expect(body).to.equal('false');
+                done();
+            });
+        });
+    } );
+    describe('test2', function() {
+        it('should return 500 if system delete a device that doesn exist', function (done) {
+            request.post({url:base_url+deleteDevice, form: {id:11111111}}, function (err, res, body){
+                expect(res.statusCode).to.equal(500);
+                //expect(body).to.equal('');
+                done();
+            });
+        });
+    });
+    describe('test3', function() {
+        it('should delete device with id=1', function (done) {
+            request.post({url:base_url+deleteDevice, form: {id:1}}, function (err, res, body){
+                expect(res.statusCode).to.equal(200);
+                expect(body).to.equal('');
+                request.get(base_url + getDevice + '&id=1', function (err, res, body) {
+                    expect(JSON.parse(body)).to.equal(null);
+                });
+                done();
+            });
+        });
+    });
+    describe('test4', function() {
+        it('should return false be with wrong parameter to delete a device', function (done) {
+            request.post({url:base_url+deleteDevice, form: {name:'phone'}}, function (err, res, body){
+                expect(JSON.parse(body)).to.equal(false);
+                done();
+            });
+        });
+    });
 
-//});
+});
 
 
 
 
 //
 ///////////////////// Classroom
-//describe('getClassroom', function() {
-//    describe('test', function () {
-//        it('should return 200 for correct request to get a list of every classroom', function (done) {
-//            request.get(base_url + getClassrooms, function (err, res, body) {
-//                expect(res.statusCode).to.equal(200);
-//                expect(body != 'false').to.equal(true);
-//                done();
-//            });
-//        });
-//    });
-//});
+
+describe('updateClassroom', function() {
+    describe('test1', function() {
+        it('should return false for no parameter', function (done) {
+            request.post({url:base_url+updateClassroom, form: {}}, function (err, res, body){
+                expect(body).to.equal('false');
+                done();
+            });
+        });
+    } );
+    describe('test2', function() {
+        it('should return false when the system update a classroom that does not exist. ', function (done) {
+            request.post({url:base_url+updateClassroom, form: {id:12222222222, capacity:40, rmNumber:3, bid:10}}, function (err, res, body){
+                expect(body).to.equal('{}');
+                done();
+            });
+        });
+    });
+    describe('test3', function() {
+        it('should update classroom with id:1, capacity:40, roomNumber:3, buidlingid:10', function (done) {
+            request.post({url:base_url+updateClassroom, form: {id:1, capacity:40, rmNumber:3, bid:10}}, function (err, res, body){
+                expect(body).to.equal('{}');
+                done();
+            });
+        });
+    });
+    describe('test4', function() {
+        it('should return false be with no id', function (done) {
+            request.post({url:base_url+updateClassroom, form: { capacity:40, rmNumber:3, bid:10}}, function (err, res, body){
+                expect(body).to.equal('false');
+                done();
+            });
+        });
+    });
+    describe('test5', function() {
+        it('should return false be with not enough parameter include id, capacity, rmNumber, bid', function (done) {
+            request.post({url:base_url+updateClassroom, form: {id:1,capacity:40}}, function (err, res, body){
+                expect(body).to.equal('false');
+                done();
+            });
+        });
+    });
+
+});
+
+describe('getClassroom', function() {
+    describe('test', function () {
+        it('should return 200 for correct request to get a list of every classroom', function (done) {
+            request.get(base_url + getClassrooms, function (err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                expect(body != 'false').to.equal(true);
+                done();
+            });
+        });
+    });
+});
 //
 //
 //describe('getClassroom', function() {
@@ -386,46 +426,3 @@ describe('addDevice', function() {
 //});
 //
 //
-//describe('updateClassroom', function() {
-//    describe('test1', function() {
-//        it('should return false for no parameter', function (done) {
-//            request.post({url:base_url+updateClassroom, form: {}}, function (err, res, body){
-//                expect(body).to.equal('false');
-//                done();
-//            });
-//        });
-//    } );
-//    describe('test2', function() {
-//        it('should return false when the system update a classroom that does not exist. ', function (done) {
-//            request.post({url:base_url+updateClassroom, form: {id:12222222222, capacity:40, rmNumber:3, bid:10}}, function (err, res, body){
-//                expect(body).to.equal('{}');
-//                done();
-//            });
-//        });
-//    });
-//    describe('test3', function() {
-//        it('should update classroom with id:1, capacity:40, roomNumber:3, buidlingid:10', function (done) {
-//            request.post({url:base_url+updateClassroom, form: {id:1, capacity:40, rmNumber:3, bid:10}}, function (err, res, body){
-//                expect(body).to.equal('{}');
-//                done();
-//            });
-//        });
-//    });
-//    describe('test4', function() {
-//        it('should return false be with no id', function (done) {
-//            request.post({url:base_url+updateClassroom, form: { capacity:40, rmNumber:3, bid:10}}, function (err, res, body){
-//                expect(body).to.equal('false');
-//                done();
-//            });
-//        });
-//    });
-//    describe('test5', function() {
-//        it('should return false be with not enough parameter include id, capacity, rmNumber, bid', function (done) {
-//            request.post({url:base_url+updateClassroom, form: {id:1,capacity:40}}, function (err, res, body){
-//                expect(body).to.equal('false');
-//                done();
-//            });
-//        });
-//    });
-//
-//});
