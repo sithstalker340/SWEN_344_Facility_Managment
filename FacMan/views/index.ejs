@@ -96,21 +96,26 @@
       <button type="button" onclick="location.href = '<%=dbUrl%>function=reserveClassroom&building=1&room=1650&day=Monday&semester=2015&timeslot=1&length=2&class=334';">reserveClassroom</button>
       <h3>Reserve Classroom</h3>
       <form method="post" action="<%=dbUrl%>function=reserveClassroom">
-        Building #: <input type="number" name="building"><br>
-        Room #: <input type="number" name="room"><br>
+        Classroom ID: <input type="number" name="id"><br>
         Day: <input type="text" name="day"><br>
-        Semester: <input type="text" name="semester"><br>
+        Section: <input type="text" name="section"><br>
         Timeslot: <input type="number" name="timeslot"><br>
         Duration: <input type="number" name="length"><br>
-        Class: <input type="text" name="class"><br>
         <input type="submit" value="Submit">
       </form>
     </div>
 
     <div>
       <h3>Search Classrooms</h3>
-      <button type="button" onclick="location.href = '<%=dbUrl%>function=getClassrooms&id=' + document.getElementById('class_id').value;">searchClassrooms</button>
-      <input type="text" placeholder="Classroom ID" id="class_id">
+      <form method="get" action="<%=dbUrl%>">
+        <input type="hidden" name="function" value="searchClassrooms">
+        <input type="hidden" name="team" value="facility_management">
+        Day: <input type="text" name="day"><br>
+        Semester: <input type="text" name="semester"><br>
+        Length: <input type="number" name="length"><br>
+        Size: <input type="number" name="size"><br>
+        <input type="submit" value="Submit">
+      </form>
     </div>
 
     <footer>
