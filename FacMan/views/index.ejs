@@ -13,8 +13,8 @@
     <div>
       <h3>Get All Devices</h3>
       <form method="get" action='<%=dbUrl%>'>
-        <input type="hidden" name="function" value="getDevices">
         <input type="hidden" name="team" value="facility_management">
+        <input type="hidden" name="function" value="getDevices">
         <input type="submit" value="Submit">
       </form>
     </div>
@@ -22,8 +22,8 @@
     <div>
       <h3>Get Single Device</h3>
       <form method="get" action='<%=dbUrl%>'>
-        <input type="hidden" name="function" value="getDevice">
         <input type="hidden" name="team" value="facility_management">
+        <input type="hidden" name="function" value="getDevice">
         Device ID: <input type="number" name="id">
         <input type="submit" value="Submit">
       </form>
@@ -51,9 +51,9 @@
     </div>
 
     <div>
-      <h3>Remove Device</h3>
+      <h3>Delete Device</h3>
       <form method="post" action="<%=dbUrl%>function=deleteDevice">
-        Device ID: <input type="text" name="uid"><br>
+        Device ID: <input type="text" name="id"><br>
         <input type="submit" value="Submit">
       </form>
     </div>
@@ -67,8 +67,8 @@
     <div>
       <h3>Get Single Classroom</h3>
       <form method="get" action='<%=dbUrl%>'>
-        <input type="hidden" name="function" value="getClassroom">
         <input type="hidden" name="team" value="facility_management">
+        <input type="hidden" name="function" value="getClassroom">
         Classroom ID: <input type="number" name="id">
         <input type="submit" value="Submit">
       </form>
@@ -118,8 +118,8 @@
     <div>
       <h3>Search Classrooms</h3>
       <form method="get" action="<%=dbUrl%>">
-        <input type="hidden" name="function" value="searchClassrooms">
         <input type="hidden" name="team" value="facility_management">
+        <input type="hidden" name="function" value="searchClassrooms">
         Day: <input type="text" name="day"><br>
         Semester: <input type="text" name="semester"><br>
         Length: <input type="number" name="length"><br>
