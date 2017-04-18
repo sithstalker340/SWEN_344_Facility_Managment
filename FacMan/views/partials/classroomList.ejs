@@ -1,0 +1,9 @@
+<table>
+	<% for (var i = 0; i < classrooms.length; i++) { %>
+		<tr class="classroomListing">
+			<td><%= classrooms[i]["BUILDING_ID"] %></td>
+			<td><%= classrooms[i]["ROOM_ID"] %></td>
+			<td class="deleteClassroom">Delete</td>
+		</tr>
+	<% } %>
+</table>
