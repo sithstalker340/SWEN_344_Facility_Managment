@@ -1,17 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var db = require('./database.js');
 var http = require('http');
 
 /* GET classroom list */
 router.get('/', function(req, res, next) {
 	var httpOptions = {
-		"host" : "www.vm344f.se.rit.edu",
+		"host" : "vm344f.se.rit.edu",
 		"path" : "/API/API.php?function=getClassrooms&team=facility_management"
 	}
 	var httpCallback = function(response) {
-		var classrooms = JSON.parse(response);
-		res.render('classrooms', {"classrooms" : classrooms});
+		res.render('classrooms', {"classrooms" : response});
 	}
 	
 	http.request(httpOptions, httpCallback).end();
