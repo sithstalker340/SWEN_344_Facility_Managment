@@ -14,3 +14,24 @@ footer {
    left: 0px;
    height: 50px;
 }
+
+.left {
+  position: absolute;
+  left: 0;
+  top: 85px;
+  bottom: 0;
+  width: 200px;
+}
+
+.main {
+    position: absolute;
+    left: 200px;
+    top: 92px;
+    right: 0;
+    bottom: 0;
+}
+
+.twitter-border {
+  border: 2px solid #CC8855;
+  border-radius: 2px;
+}
