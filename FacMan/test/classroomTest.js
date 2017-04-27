@@ -38,6 +38,39 @@ var updateClassroomTest = function (base_url) {
         });
         describe('test3', function() {
             it('should update classroom with id:1, capacity:40, roomNumber:3, buidlingid:10', function (done) {
+                var deviceToUpdate;
+                async.series([
+                    function(callback) {
+                        request.get(base_url + getDevices, function (err, res, body) {
+                            var jsonObjs = JSON.parse(body);
+                            deviceToUpdate = jsonObjs[jsonObjs.length-1];
+                            console.log(deviceToUpdate);
+                            callback();
+                        })
+                    },
+                    function(callback) {
+                        request.post({url:base_url+updateDevice, form: {id:deviceToUpdate.ID, condition:'very good', name:'IPhone8'}}, function (err, res, body){
+                            expect(res.statusCode).to.equal(200);
+                            callback();
+                        });
+                    },function(callback) {
+                        request.get(base_url + getDevice + '&id='+deviceToUpdate.ID, function (err, res, body) {
+                            var deviceAfterUpdate = JSON.parse(body);
+                            console.log(deviceAfterUpdate)
+                            ;                            expect(deviceAfterUpdate['CONDITION']).to.equal('very good');
+                            expect(deviceAfterUpdate['NAME']).to.equal('IPhone8');
+                            callback();
+                        });
+                    }
+                ],function(err) { //This function gets called after the two tasks have called their "task callbacks"
+                    if (err)
+                        console.log(err);
+                    done();
+
+                });
+
+
+
                 request.post({url:base_url+updateClassroom, form: {id:1, capacity:40, rmNumber:3, bid:10}}, function (err, res, body){
                     expect(body).to.equal('{}');
                     done();

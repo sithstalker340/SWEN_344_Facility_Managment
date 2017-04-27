@@ -11,7 +11,7 @@ var classroomTest = require('./classroomTest.js');
 var http = require('http');
 var request = require('request');
 
-var base_url = 'http://www.se.rit.edu/~mcd4874/DevAPI/API.php?team=facility_management';
+var base_url = 'http://vm344f.se.rit.edu/API/API.php?team=facility_management';
 //
 //var getDevice = '&function=getDevice';
 //var getDevices = '&function=getDevices';
@@ -29,11 +29,11 @@ var base_url = 'http://www.se.rit.edu/~mcd4874/DevAPI/API.php?team=facility_mana
 
 
 
-//deviceTest.updateDevice(base_url);
-//deviceTest.getDevices(base_url);
+deviceTest.updateDevice(base_url);
+deviceTest.getDevices(base_url);
 deviceTest.getDevice(base_url);
-//deviceTest.addDevice(base_url);
-//deviceTest.deleteDevice(base_url);
+deviceTest.addDevice(base_url);
+deviceTest.deleteDevice(base_url);
 //
 //
 //classroomTest.updateClassroom(base_url);

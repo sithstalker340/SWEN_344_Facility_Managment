@@ -3,6 +3,7 @@
  */
 var assert = require('assert');
 var expect = require('Chai').expect;
+var async = require('async');
 /**
  * Created by minhduong on 3/29/17.
  */
@@ -14,6 +15,13 @@ var getDevices = '&function=getDevices';
 var addDevice = '&function=addDevice';
 var deleteDevice = '&function=deleteDevice';
 var updateDevice = '&function=updateDevice';
+
+
+var getDevicesfunciton = function (base_url,callback) {
+    request.get(base_url + getDevices, function (err, res, body) {
+        return callback(res);
+    });
+};
 
 
 var updateDeviceTest = function(base_url) {
@@ -34,20 +42,41 @@ var updateDeviceTest = function(base_url) {
                 });
             });
         });
-        //$_POST["id"], $_POST["condition"], $_POST["checkoutDate"], $_POST["name"], $_POST["userId"
         describe('test3', function() {
-            it('should update device with uid:1, condition:good, name:Phone', function (done) {
-                request.post({url:base_url+updateDevice, form: {id:2, condition:'good', name:'Iphone'}}, function (err, res, body){
-                    expect(body).to.equal('{}');
-                    expect(res.statusCode).to.equal(200);
-                    request.get(base_url + getDevice + '&id=1', function (err, res, body) {
-                        var classroom = JSON.parse(res.body);
-                        expect(classroom['CONDITION']).to.equal('good');
-                        expect(classroom['NAME']).to.equal('Iphone');
-                    });
+                var deviceToUpdate;
+                async.series([
+                    function(callback) {
+                        request.get(base_url + getDevices, function (err, res, body) {
+                            var jsonObjs = JSON.parse(body);
+                            deviceToUpdate = jsonObjs[jsonObjs.length-1];
+                            console.log(deviceToUpdate);
+                            callback();
+                        })
+                    },
+                    function(callback) {
+                        request.post({url:base_url+updateDevice, form: {id:deviceToUpdate.ID, condition:'very good', name:'IPhone8'}}, function (err, res, body){
+                            expect(res.statusCode).to.equal(200);
+                            callback();
+                        });
+                    },function(callback) {
+                        it("shall do this");
+                        it('should update device a device id:'+deviceToUpdate.ID+ 'with condition:very good, name:IPhone8', function (callback) {
+                            request.get(base_url + getDevice + '&id='+deviceToUpdate.ID, function (err, res, body) {
+                                var deviceAfterUpdate = JSON.parse(body);
+                                console.log(deviceAfterUpdate)
+    ;                           expect(deviceAfterUpdate['CONDITION']).to.equal('very good');
+                                expect(deviceAfterUpdate['NAME']).to.equal('IPhone8');
+                            });
+                            callback();
+                        });
+                    }
+                ],function(err) { //This function gets called after the two tasks have called their "task callbacks"
+                    if (err)
+                        console.log(err);
                     done();
+
                 });
-            });
+
         });
         describe('test4', function() {
             it('should return false be with only parameter uid:1', function (done) {
@@ -75,9 +104,10 @@ var getDevicesTest = function (base_url) {
     describe('getDevices', function() {
         describe('test', function () {
             it('should return 200 for correct request to get a list of every devices', function (done) {
-                request.get(base_url + getDevices, function (err, res, body) {
-                    expect(res.statusCode).to.equal(200);
-                    expect(body != 'false').to.equal(true);
+                getDevicesfunciton(base_url+ getDevices,function(response) {
+
+                    expect(response.statusCode).to.equal(200);
+                    expect(response.body != 'false').to.equal(true);
                     done();
                 });
             });
@@ -86,22 +116,6 @@ var getDevicesTest = function (base_url) {
 };
 
 var getDeviceTest = function(base_url) {
-    //describe('test1', function() {
-    //    it('should return 200 for correct request', function (done) {
-    //        request.get(base_url + getDevice + '&id=1', function (err, res, body) {
-    //            expect(res.statusCode).to.equal(200);
-    //            done();
-    //        });
-    //    });
-    //} );
-    //request.get(base_url + getDevices, function (err, res, body) {
-    //    if (res.statusCode == 200) {
-    //        var listDevices = JSON.parse(body);
-    //
-    //        if (listDevices.length > 0) {
-    //            var testDevice = listDevices[0];
-    //            var deviceID = '&id='+testDevice.ID;
-
     describe('getDevice', function () {
         describe('test1', function () {
             it('should return 200 for correct request', function (done) {
@@ -148,10 +162,6 @@ var getDeviceTest = function(base_url) {
         });
 
     });
-
-//            }
-//        }
-//    });
 };
 
 var addDeviceTest = function(base_url) {
@@ -159,16 +169,39 @@ var addDeviceTest = function(base_url) {
         describe('test1', function() {
             it('should return false for no parameter', function (done) {
                 request.post({url:base_url+addDevice, form: {}}, function (err, res, body){
-                    expect(JSON.parse(body)).to.equal(false);
+                    expect(JSON.parse(body)).to.equal('Missing parameters. Function addDevice requires: name, condition.');
                     done();
                 });
             });
         } );
         describe('test3', function() {
             it('should add device with name:phone and condition:good', function (done) {
-                request.post({url:base_url+addDevice, form: {name:'phone', condition:'good'}}, function (err, res, body){
-                    expect(body).to.equal('{}');
+                var pastTotalDevices;
+                async.series([
+                    function(callback) {
+                        request.get(base_url + getDevices, function (err, res, body) {
+                            var jsonObjs = JSON.parse(body);
+                            pastTotalDevices = jsonObjs.length;
+                            callback();
+                        })
+                    },
+                    function(callback) {
+                        request.post({url:base_url+addDevice, form: {name:'phone', condition:'good'}}, function (err, res, body){
+                            expect(res.statusCode).to.equal(200);
+                            callback();
+                        });
+                    },function(callback) {
+                        request.get(base_url + getDevices, function (err, res, body) {
+                            var jsonObjs = JSON.parse(body);
+                            expect(pastTotalDevices+1).to.equal(jsonObjs.length);
+                            callback();
+                        })
+                    }
+                ],function(err) { //This function gets called after the two tasks have called their "task callbacks"
+                    if (err)
+                        console.log(err);
                     done();
+
                 });
             });
         });
@@ -197,7 +230,7 @@ var deleteDeviceTest = function (base_url) {
         describe('test1', function() {
             it('should return false for no parameter', function (done) {
                 request.post({url:base_url+deleteDevice, form: {}}, function (err, res, body){
-                    expect(body).to.equal('false');
+                    expect(body).to.equal('Missing parameters. Function getDevice requires: id.');
                     done();
                 });
             });
@@ -212,14 +245,32 @@ var deleteDeviceTest = function (base_url) {
             });
         });
         describe('test3', function() {
-            it('should delete device with id=1', function (done) {
-                request.post({url:base_url+deleteDevice, form: {uid:1}}, function (err, res, body){
-                    expect(res.statusCode).to.equal(200);
-                    //expect(body).to.equal('');
-                    request.get(base_url + getDevice + '&id=1', function (err, res, body) {
-                        expect(JSON.parse(body)).to.equal(null);
-                    });
+            it('should delete device ', function (done) {
+                var deviceToDelete;
+                async.series([
+                    function(callback) {
+                        request.get(base_url + getDevices, function (err, res, body) {
+                            var jsonObjs = JSON.parse(body);
+                            deviceToDelete = jsonObjs[jsonObjs.length-1];
+                            callback();
+                        })
+                    },
+                    function(callback) {
+                        request.post({url:base_url+deleteDevice, form: {uid:deviceToDelete.ID}}, function (err, res, body){
+                            expect(res.statusCode).to.equal(200);
+                            callback();
+                        });
+                    },function(callback) {
+                        request.get(base_url + getDevice + '&id='+deviceToDelete.ID, function (err, res, body) {
+                            expect(JSON.parse(body)).to.equal(null);
+                            callback();
+                        });
+                    }
+                ],function(err) { //This function gets called after the two tasks have called their "task callbacks"
+                    if (err)
+                        console.log(err);
                     done();
+
                 });
             });
         });
