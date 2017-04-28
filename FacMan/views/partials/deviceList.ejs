@@ -1,0 +1,18 @@
+<div class="container">
+	<% for(var i = 0; i < devices.length; i++) { %>
+		<div class="row">
+			<div class="col-xs-3">
+				<%= devices[i]["NAME"]%>
+			</div>
+			<div class="col-xs-3">
+				<%= devices[i]["CHECKED_OUT"]%>
+			</div>	
+			<div class="col-xs-3">
+				<%= devices[i]["CHECK_OUT_DATE"]%>
+			</div>
+			<div class="col-xs-3">
+				<%= devices[i]["CONDITION"]%>
+			</div>
+		</div>
+	<% } %>
+</div>
