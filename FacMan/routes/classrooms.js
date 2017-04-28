@@ -4,7 +4,7 @@ var request = require('request');
 
 /* GET classroom list */
 router.get('/', function(req, res, next) {
-	var url = "http://vm344f.se.rit.edu/API/API.php?function=getClassrooms&team=facility_management";
+	var url = api + "function=getClassrooms&team=facility_management";
 	var callback = function(error, response, body) {
 		var classrooms = JSON.parse(body);
 		res.render('classrooms', {"classrooms" : classrooms});
