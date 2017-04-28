@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/classroom/:id', function(req, res, next) {
-    console.log(res);
-    res.send(req.params);
+router.get('/', function(req, res, next) {
+
     res.render('classroom');
 });
 
