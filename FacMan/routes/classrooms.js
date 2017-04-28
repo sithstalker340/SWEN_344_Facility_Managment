@@ -8,8 +8,8 @@ router.get('/', function(req, res, next) {
 	var callback = function(error, response, body) {
 		var classrooms = JSON.parse(body);
 		res.render('classrooms', {"classrooms" : classrooms});
-	}
-	request(url, callback)
+	};
+	request(url, callback);
 });
 
 
