@@ -88,3 +88,32 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+/**
+ * Tweet bot code.  Easier to stick it in here than trying to run a concurrent script.
+ */
+ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+ var TwitterBot = require("node-twitterbot").TwitterBot;
+ var bot = new TwitterBot("twitterbot.json");
+ var weatherPayload = "";
+
+ var tweetAction = bot.addAction("tweet", function(twitter, action, tweet) {
+   var xhttp = new XMLHttpRequest();
+   xhttp.onreadystatechange = function() {
+     if (this.readyState == 4 && this.status == 200) {
+       weatherPayload = JSON.parse(this.responseText);
+       if(weatherPayload.weather) {
+         bot.tweet("Weather report: " + weatherPayload.weather[0].main + " with a temperature of " + Math.round(parseInt(weatherPayload.main.temp) * (9/5) - 459.67) + "°F");
+       }
+     }
+   };
+   xhttp.open("GET", "http://api.openweathermap.org/data/2.5/weather?zip=14623&APPID=26a0348ecbedeb0af1fbf314d9c0529f", true);
+   xhttp.send();
+ });
+bot.now(tweetAction);
+
+var tweetTime = function() {
+  bot.now(tweetAction);
+};
+
+setInterval(tweetTime, 3600000); // 1000ms/second * 60 seconds/min * 60 min/hour = hourly tweet
