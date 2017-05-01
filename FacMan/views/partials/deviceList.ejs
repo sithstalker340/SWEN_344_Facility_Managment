@@ -3,31 +3,44 @@
 		<h3 class="text-capitalize">my checked out devices</h3>
 		not implemented
 	</div>
-	<div>
-		<h3 class="text-capitalize">device list</h3>
-		<% for(var i = 0; i < devices.length; i++) { %>
-			<div class="row text-capitalize">
-				<div class="col-xs-2">
-					<%= devices[i]["NAME"]%>
-				</div>
-				<div class="col-xs-offset-1 col-xs-2">
-					<% if(devices[i]["CHECKED_OUT"] === 0){ %>
-							<span>Available <span class="glyphicon glyphicon-ok pull-right"></span></span>
-					<% } else { %>
-							<span>Unavailable <span class="glyphicon glyphicon-remove pull-right"></span></span>
-					<% }%>
-				</div>
-				<div class="col-xs-offset-1 col-xs-3">
-					<% if(devices[i]["CHECKED_OUT"] && devices[i]["CHECK_OUT_DATE"]) { %>
-						<%= devices[i]["CHECK_OUT_DATE"]%>
-					<% } else if (!devices[i]["CHECKED_OUT"]) { %>
-						<span class="text-capitalize">no date available</span>
-					<% }%>
-				</div>
-				<div class="col-xs-2">
-					<%= devices[i]["CONDITION"]%>
-				</div>
-			</div>
-		<% } %>
+	<hr>
+	<div class="text-capitalize">
+		<h3>device list</h3>
+		<table class="device-list table table-striped">
+		    <thead>
+	      		<tr>
+			        <th>device name</th>
+			        <th>availability</th>
+			        <th>return date</th>
+			        <th>condition</th>
+	      		</tr>
+		    </thead>
+		    <tbody>
+	    		<% for(var i = 0; i < devices.length; i++) { %>
+					<tr onclick="<%= testHandle %>">
+						<td>
+							<%= devices[i]["NAME"]%>
+						</td>
+						<td>
+							<% if(devices[i]["CHECKED_OUT"] === 0){ %>
+									<span class="glyphicon glyphicon-ok "></span><span>  Available</span>
+							<% } else { %>
+									<span class="glyphicon glyphicon-remove "></span><span>  Unavailable</span>
+							<% }%>
+						</td>
+						<td>
+							<% if(devices[i]["CHECKED_OUT"] && devices[i]["CHECK_OUT_DATE"]) { %>
+								<%= devices[i]["CHECK_OUT_DATE"]%>
+							<% } else if (devices[i]["CHECKED_OUT"] && !devices[i]["CHECK_OUT_DATE"]) { %>
+								<span>no date available</span>
+							<% }%>
+						</td>
+						<td>
+							<%= devices[i]["CONDITION"]%>
+						</td>
+					</tr>
+				<% } %>
+		    </tbody>
+	  	</table>
 	</div>
 </div>

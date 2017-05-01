@@ -38,8 +38,14 @@ footer {
 
 .glyphicon-ok {
   color: #2ECC71;
+  margin-right: 5px;
 }
 
 .glyphicon-remove {
   color: #D91E18;
+  margin-right: 5px;
+}
+
+.device-list .glyphicon-remove {
+  top: 3px;
 }

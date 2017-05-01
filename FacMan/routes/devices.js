@@ -6,7 +6,10 @@ router.get('/', function(req, res, next) {
 	var url = api + "function=getDevices&team=facility_management";
 	var callback = function(error, response, body) {
 		var devices = JSON.parse(body);
-		res.render('devices', {"devices" : devices});
+		res.render('devices', 
+			{
+				"devices" : devices
+			});
 	};
 	request(url, callback);
 });
