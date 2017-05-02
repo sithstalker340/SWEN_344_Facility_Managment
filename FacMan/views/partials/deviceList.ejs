@@ -17,7 +17,7 @@
 		    </thead>
 		    <tbody>
 	    		<% for(var i = 0; i < devices.length; i++) { %>
-					<tr onclick="<%= testHandle %>">
+					<tr onclick="document.location.href += '/<%= devices[i]["ID"] %>';">
 						<td>
 							<%= devices[i]["NAME"]%>
 						</td>
@@ -38,7 +38,7 @@
 						<td>
 							<%= devices[i]["CONDITION"]%>
 						</td>
-					</tr>
+					</tr></a>
 				<% } %>
 		    </tbody>
 	  	</table>
