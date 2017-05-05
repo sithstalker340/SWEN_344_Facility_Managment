@@ -8,13 +8,18 @@
     </header>
 
     <% include ../views/partials/sidebar %>
-
+    
     <div class="main">
-
-      <p>classroom</p>
-
+        <p><strong>Building ID:</strong> <%= classroom['classroom']["BUILDING_ID"] %></p>
+        <p><strong>Room Number:</strong> <%= classroom['classroom']["ROOM_NUM"] %></p>
+        <p><strong>Capacity:</strong> <%= classroom['classroom']["CAPACITY"] %></p>
+        <p><strong>Current Courses in Classroom:</strong> <%= JSON.stringify(classroom['classroom']) %></p>
+        <p><strong>Student List:</strong> Will be putting student stuff here. <%= %></p>
+        
+        
     </div>
 
     <% include ../views/partials/footer %>
   </body>
 </html>
+html>

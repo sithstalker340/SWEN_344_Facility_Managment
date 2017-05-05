@@ -35,3 +35,24 @@ footer {
   border: 2px solid #CC8855;
   border-radius: 2px;
 }
+
+.new-device{
+  margin-top: 15px;
+  margin-right: 40px;
+}
+
+.glyphicon {
+  margin-right: 5px;
+}
+
+.glyphicon-ok {
+  color: #2ECC71;
+}
+
+.glyphicon-remove {
+  color: #D91E18;
+}
+
+.device-list .glyphicon-remove {
+  top: 3px;
+}

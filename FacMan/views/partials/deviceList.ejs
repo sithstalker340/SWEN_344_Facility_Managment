@@ -1,0 +1,53 @@
+<div class="container">
+	<div>
+		<h3 class="text-capitalize">my checked out devices</h3>
+		not implemented
+	</div>
+	<hr>
+	<div class="text-capitalize">
+		<div class="row">
+			<h3 class="col-xs-3 pull-left">device list</h3>
+			<button class="btn btn-default pull-right new-device" onclick="document.location.href += '/newDevice'"><span class="glyphicon glyphicon-plus"></span>Add Device</button>
+		</div>
+		<table class="device-list table table-striped">
+		    <thead>
+	      		<tr>
+			        <th>device name</th>
+			        <th>availability</th>
+			        <th>return date</th>
+			        <th>condition</th>
+			        <th></th>
+	      		</tr>
+		    </thead>
+		    <tbody>
+	    		<% for(var i = 0; i < devices.length; i++) { %>
+					<tr>
+						<td onclick="document.location.href += '/<%= devices[i]["ID"] %>';">
+							<%= devices[i]["NAME"]%>
+						</td>
+						<td onclick="document.location.href += '/<%= devices[i]["ID"] %>';">
+							<% if(devices[i]["CHECKED_OUT"] === 0){ %>
+									<span class="glyphicon glyphicon-ok "></span><span>  Available</span>
+							<% } else { %>
+									<span class="glyphicon glyphicon-remove "></span><span>  Unavailable</span>
+							<% }%>
+						</td>
+						<td onclick="document.location.href += '/<%= devices[i]["ID"] %>';">
+							<% if(devices[i]["CHECKED_OUT"] && devices[i]["CHECK_OUT_DATE"]) { %>
+								<%= devices[i]["CHECK_OUT_DATE"]%>
+							<% } else if (devices[i]["CHECKED_OUT"] && !devices[i]["CHECK_OUT_DATE"]) { %>
+								<span>no date available</span>
+							<% }%>
+						</td>
+						<td onclick="document.location.href += '/<%= devices[i]["ID"] %>';">
+							<%= devices[i]["CONDITION"]%>
+						</td>
+						<td>
+							<button class="btn btn-danger" onclick="">Delete</button>
+						</td>
+					</tr></a>
+				<% } %>
+		    </tbody>
+	  	</table>
+	</div>
+</div>
