@@ -2,23 +2,31 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var extend = require('extend');
-
+        
 router.get('/:id', function(req, res, next) {
 
 	var urlC = api + "function=getClassroom&team=facility_management&id=" + req.params.id;
     var urlR = api + "function=getClassroomReservations&team=facility_management&id=" + req.params.id;
+    
     var data = [];
     
     var callbackR = function(error, response, body) {
-        console.log(body);
-        data['reserve'] = JSON.parse(body);	
+        //console.log(body);
+/*         if(body.length != ""){
+            data['reserve'] = JSON.parse(body);
+            for(i in data['reserve']){
+                var urlGetCourse = api + "function=getCourse&team=general&id=" + i;
+            }
+        } */
+        data['reserve'] = JSON.parse(body);
         
-        console.log(data);
+        //console.log(data['reserve']);
+
         res.render('classroom', {"classroom" : data});
     }
     
     var callbackC = function(error, response, body) {
-       console.log(body);
+       //console.log(body);
        data['classroom'] = JSON.parse(body);	
         
        request(urlR,callbackR);
@@ -26,9 +34,7 @@ router.get('/:id', function(req, res, next) {
     
 	request(urlC, callbackC);
     
-    
 }); 
-
 
 /* GET classroom list */
 router.get('/', function(req, res, next) {
@@ -39,15 +45,5 @@ router.get('/', function(req, res, next) {
 	};
 	request(url, callback);
 });
-
-
-/* router.get('/:id', function(req, res, next) {
-	var classroom = {
-		building : "GOL",
-		room : req.params.id,
-		size : 30
-	};
-	res.json(classroom);
-}); */
 
 module.exports = router;
