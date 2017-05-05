@@ -6,7 +6,8 @@
     <% include ../views/partials/sidebar %>
 
     <div class="main">
-    	<% include partials/reserveDevice %>
+    	<% if(reserve === true) { include partials/reserveDevice }%>
+    	<!-- <% if( === true) { include partials/returnDevice }%> -->
     </div>
 
 

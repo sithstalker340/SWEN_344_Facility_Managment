@@ -17,6 +17,7 @@
 			        <th>return date</th>
 			        <th>condition</th>
 			        <th></th>
+			        <th></th>
 	      		</tr>
 		    </thead>
 		    <tbody>
@@ -41,6 +42,9 @@
 						</td>
 						<td onclick="document.location.href += '/<%= devices[i]["ID"] %>';">
 							<%= devices[i]["CONDITION"]%>
+						</td>
+						<td>
+							<button class="btn btn-success" onclick="document.location.href += '/return' + '/<%= devices[i]["ID"] %>';">Return</button>
 						</td>
 						<td>
 							<button class="btn btn-danger" onclick="document.location.href += '/delete' + '/<%= devices[i]["ID"] %>';">Delete</button>

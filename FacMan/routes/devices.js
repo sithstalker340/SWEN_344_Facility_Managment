@@ -17,7 +17,7 @@ router.route('/')
 				});
 		};
 		request(url, callback);
-	});
+});
 
 router.route('/newDevice')
 	.get(function(req, res, next){
@@ -38,7 +38,7 @@ router.route('/newDevice')
 
 			res.redirect('http://' + req.get('host') + '/devices', '301');
 		});
-	});
+});
 
 router.route('/delete/:id')
 	.get(function(req, res, next){
@@ -56,21 +56,43 @@ router.route('/delete/:id')
 
 			res.redirect('http://' + req.get('host') + '/devices', '301');
 		});
+});
+
+router.route('/return/:id')
+	.get(function(req, res, next){
+		console.log('hit');
+		// var url = api + "team=facility_management&function=updateDevice";
+		var data = "uid=" + req.params.id;
+
+		res.render('device', {return : true, reserve : false});
+
+		// request.post({
+		// 	headers: {'content-type' : 'application/x-www-form-urlencoded'},
+		// 	url: url,
+		// 	body: data
+		// }, function(error, response, body){
+		// 	if(error){
+		// 		console.log('error', error);
+		// 	}
+
+			// res.redirect('http://' + req.get('host') + '/devices', '301');
+		// });
 	});
 	
 
-// router.get('/:id', function(req, res, next) {
-// 	var url = api + "team=facility_management&function=getDevice&id=" + req.params.id;
+router.route('/:id')
+	.get(function(req, res, next) {
+		var url = api + "team=facility_management&function=getDevice&id=" + req.params.id;
 	
-// 	request(url, function(error, response, body){
-// 		device = JSON.parse(body);
+		request(url, function(error, response, body){
+			device = JSON.parse(body);
 
-// 		res.render('device', 
-// 			{
-// 				device : device
-// 			});
-// 	});
-// });
+		res.render('device', 
+			{
+				device : device
+		});
+	});
+});
 
 
 // router.post('/:id', function(req, res, next){
