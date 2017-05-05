@@ -3,10 +3,12 @@ var router = express.Router();
 var request = require('request');
 var extend = require('extend');
 
-router.get('classroom/:id', function(req, res, next) {
-	var urlC = "http://vm344f.se.rit.edu/API/API.php?function=getClassroom&team=facility_management&id=" + req.params.id;
-    var urlR = "http://vm344f.se.rit.edu/API/API.php?function=getClassroomReservations&team=facility_management&id=" + req.params.id;
+router.get('/:id', function(req, res, next) {
+
+	var urlC = api + "function=getClassroom&team=facility_management&id=" + req.params.id;
+    var urlR = api + "function=getClassroomReservations&team=facility_management&id=" + req.params.id;
     var data = [];
+    
     var callbackR = function(error, response, body) {
         console.log(body);
         data['reserve'] = JSON.parse(body);	
@@ -39,13 +41,13 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.get('/:id', function(req, res, next) {
+/* router.get('/:id', function(req, res, next) {
 	var classroom = {
 		building : "GOL",
 		room : req.params.id,
 		size : 30
 	};
 	res.json(classroom);
-});
+}); */
 
 module.exports = router;
