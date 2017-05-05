@@ -16,30 +16,34 @@
 			        <th>availability</th>
 			        <th>return date</th>
 			        <th>condition</th>
+			        <th></th>
 	      		</tr>
 		    </thead>
 		    <tbody>
 	    		<% for(var i = 0; i < devices.length; i++) { %>
-					<tr onclick="document.location.href += '/<%= devices[i]["ID"] %>';">
-						<td>
+					<tr>
+						<td onclick="document.location.href += '/<%= devices[i]["ID"] %>';">
 							<%= devices[i]["NAME"]%>
 						</td>
-						<td>
+						<td onclick="document.location.href += '/<%= devices[i]["ID"] %>';">
 							<% if(devices[i]["CHECKED_OUT"] === 0){ %>
 									<span class="glyphicon glyphicon-ok "></span><span>  Available</span>
 							<% } else { %>
 									<span class="glyphicon glyphicon-remove "></span><span>  Unavailable</span>
 							<% }%>
 						</td>
-						<td>
+						<td onclick="document.location.href += '/<%= devices[i]["ID"] %>';">
 							<% if(devices[i]["CHECKED_OUT"] && devices[i]["CHECK_OUT_DATE"]) { %>
 								<%= devices[i]["CHECK_OUT_DATE"]%>
 							<% } else if (devices[i]["CHECKED_OUT"] && !devices[i]["CHECK_OUT_DATE"]) { %>
 								<span>no date available</span>
 							<% }%>
 						</td>
-						<td>
+						<td onclick="document.location.href += '/<%= devices[i]["ID"] %>';">
 							<%= devices[i]["CONDITION"]%>
+						</td>
+						<td>
+							<button class="btn btn-danger" onclick="">Delete</button>
 						</td>
 					</tr></a>
 				<% } %>

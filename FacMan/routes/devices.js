@@ -21,11 +21,12 @@ router.route('/newDevice')
 	})
 	.post(function(req, res, next){
 		var url = api + "team=facility_management&function=addDevice";
-		var data = { name: req.body.name, condition: req.body.condition };
+		var data = "name=" + req.body.name + "&condition=" + req.body.condition;
 
 		request.post({
+			headers: {'content-type' : 'application/x-www-form-urlencoded'},
 			url: url,
-			form: data
+			body: data
 		}, function(error, response, body){
 			if(error){
 				console.log('error', error);
@@ -33,29 +34,24 @@ router.route('/newDevice')
 
 			res.render('newDevice', { complete : true });
 		});
+	})
+	.delete(function(req, res, next){
+		var url = api + "team=facility_management&function=deleteDevice";
+		var data = "uid=80";
+
+		request.delete({
+			headers: {'content-type' : 'application/x-www-form-urlencoded'},
+			url: url,
+			body: data
+		}, function(error, response, body){
+			if(error){
+				console.log('error', error);
+			}
+
+			res.render('/', { complete : true });
+		});
 	});
 
-// router.get('/newDevice', function(req, res, next) {
-// 	res.render('newDevice');
-// });
-
-// router.post('/newDevice', function(req, res, next){
-// 	var url = api + "team=facility_management&function=addDevice";
-// 	var data = {
-// 		name: "test Name",
-// 		condition: "test cond"
-// 	};
-
-// 	request.post({
-// 		url : url,
-// 		form : data
-// 	}, function(error, response, body){
-// 		if(error){
-// 			console.log('error', error);
-// 		}
-// 		console.log("done");
-// 	});
-// });
 
 // router.get('/:id', function(req, res, next) {
 // 	var url = api + "team=facility_management&function=getDevice&id=" + req.params.id;
