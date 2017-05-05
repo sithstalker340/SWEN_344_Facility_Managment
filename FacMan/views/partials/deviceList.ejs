@@ -43,7 +43,7 @@
 							<%= devices[i]["CONDITION"]%>
 						</td>
 						<td>
-							<button class="btn btn-danger" onclick="">Delete</button>
+							<button class="btn btn-danger" onclick="document.location.href += '/delete' + '/<%= devices[i]["ID"] %>';">Delete</button>
 						</td>
 					</tr></a>
 				<% } %>

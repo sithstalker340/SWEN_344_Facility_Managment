@@ -2,14 +2,18 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
+var devices = {};
+
 router.route('/')
 	.get(function(req, res, next) {
 		var url = api + "team=facility_management&function=getDevices";
 		var callback = function(error, response, body) {
-			var devices = JSON.parse(body);
+			devices = JSON.parse(body);
+
 			res.render('devices', 
 				{
-					devices : devices
+					devices : devices,
+					deleteDevice : "deleteDevice();"
 				});
 		};
 		request(url, callback);
@@ -32,14 +36,16 @@ router.route('/newDevice')
 				console.log('error', error);
 			}
 
-			res.render('newDevice', { complete : true });
+			res.redirect('http://' + req.get('host') + '/devices', '301');
 		});
-	})
-	.delete(function(req, res, next){
-		var url = api + "team=facility_management&function=deleteDevice";
-		var data = "uid=80";
+	});
 
-		request.delete({
+router.route('/delete/:id')
+	.get(function(req, res, next){
+		var url = api + "team=facility_management&function=deleteDevice";
+		var data = "uid=" + req.params.id;
+
+		request.post({
 			headers: {'content-type' : 'application/x-www-form-urlencoded'},
 			url: url,
 			body: data
@@ -48,10 +54,10 @@ router.route('/newDevice')
 				console.log('error', error);
 			}
 
-			res.render('/', { complete : true });
+			res.redirect('http://' + req.get('host') + '/devices', '301');
 		});
 	});
-
+	
 
 // router.get('/:id', function(req, res, next) {
 // 	var url = api + "team=facility_management&function=getDevice&id=" + req.params.id;
