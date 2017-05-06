@@ -12,8 +12,10 @@ var http = require('http');
 var request = require('request');
 
 //var base_url = 'http://vm344f.se.rit.edu/API/API.php?team=facility_management';
-var base_url = 'http://www.se.rit.edu/~mcd4874/DevAPI/API.php?team=facility_management&function=getDevices';
-//
+
+//var base_url = 'http://www.se.rit.edu/~mcd4874/SWEN-344-API/SWEN-344-API/API/API.php?team=facility_management';
+//var base_url = 'http://www.se.rit.edu/~mcd4874/DevAPI/API.php?team=facility_management';
+//var base_url = 'http://www.se.rit.edu/~axv3658/project/API/API.php?team=facility_management';
 //var getDevice = '&function=getDevice';
 //var getDevices = '&function=getDevices';
 //var addDevice = '&function=addDevice';
@@ -31,9 +33,9 @@ var base_url = 'http://www.se.rit.edu/~mcd4874/DevAPI/API.php?team=facility_mana
 
 
 //deviceTest.updateDevice(base_url);
-//deviceTest.getDevices(base_url);
-//deviceTest.getDevice(base_url);
-//deviceTest.addDevice(base_url);
+deviceTest.getDevices(base_url);
+deviceTest.getDevice(base_url);
+deviceTest.addDevice(base_url);
 //deviceTest.deleteDevice(base_url);
 //
 //
@@ -42,7 +44,7 @@ var base_url = 'http://www.se.rit.edu/~mcd4874/DevAPI/API.php?team=facility_mana
 //classroomTest.getClassroom(base_url);
 //classroomTest.addClassroom(base_url);
 //classroomTest.deleteClassroom(base_url);
-classroomTest.reserveClassroom(base_url);
+//classroomTest.reserveClassroom(base_url);
 
 //});
 ////

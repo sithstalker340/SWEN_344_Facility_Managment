@@ -23,7 +23,7 @@ router.get('/:id', function(req, res, next) {
         //console.log(data['reserve']);
 
         res.render('classroom', {"classroom" : data});
-    }
+    };
     
     var callbackC = function(error, response, body) {
        //console.log(body);
