@@ -2,10 +2,12 @@
   <% include ../views/partials/head %>
   <body>
     <% include ../views/partials/header %>
-    <% include ../views/partials/sidebar %>
 
-    <div class="main">
-	  <% include partials/classroomList %>
+    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2">
+      <% include ../views/partials/sidebar %>
+    </div>
+    <div class="col-xs-8 col-sm-9 col-md-9 col-lg-10">
+      <% include partials/classroomList %>
     </div>
 
     <% include ../views/partials/analytic %>

@@ -15,32 +15,29 @@ footer {
    height: 50px;
 }
 
-.left {
-  position: absolute;
-  left: 0;
-  top: 85px;
-  bottom: 0;
-  width: 200px;
+/*                    */
+/* Global CSS Classes */
+/*                    */
+.bottom-15 {
+  margin-bottom: 15px;
 }
 
-.main {
-    position: absolute;
-    left: 200px;
-    top: 92px;
-    right: 0;
-    bottom: 0;
+.table>tbody>tr>td {
+  vertical-align: middle !important;
 }
 
+
+/*                 */
+/* Sidebar Classes */
+/*                 */
 .twitter-border {
   border: 2px solid #CC8855;
   border-radius: 2px;
 }
 
-.new-device{
-  margin-top: 15px;
-  margin-right: 40px;
-}
-
+/*                  */
+/* Device List Page */
+/*                  */
 .glyphicon {
   margin-right: 5px;
 }
@@ -57,10 +54,10 @@ footer {
   top: 3px;
 }
 
-.bottom-15 {
-  margin-bottom: 15px;
-}
-
-.table>tbody>tr>td {
-  vertical-align: middle !important;
+/*                 */
+/* New Device Page */
+/*                 */
+.new-device{
+  margin-top: 15px;
+  margin-right: 40px;
 }
