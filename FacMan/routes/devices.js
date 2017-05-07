@@ -8,21 +8,18 @@ var devices = {};
 router.route('/')
 	.get(function(req, res, next) {
 		var url = api + "team=facility_management&function=getDevices";
-		var callback = function(error, response, body) {
-			devices = JSON.parse(body);
-
-			res.render('devices', 
-				{
-					devices : devices
-				});
-		};
-		request(url, callback);
+		request.get(
+			url, function(error, response, body){
+				devices = JSON.parse(body);
+				res.render('devices', { devices : devices });
+			}
+		);
 });
 
 // Add a new device
 router.route('/newDevice')
 	.get(function(req, res, next){
-		res.render('newDevice', { complete : false });
+		res.render('newDevice');
 	})
 	.post(function(req, res, next){
 		var url = api + "team=facility_management&function=addDevice";
@@ -57,9 +54,7 @@ router.route('/delete/:id')
 // Reserve a device
 router.route('/reserve/:id')
 	.get(function(req, res, next){
-		var device = devices.filter(function ( obj ) {
-		    return obj.ID == req.params.id;
-		})[0];
+		var device = getDevice(req);
 
 		var returnDate = new Date();
 		returnDate.setMonth(returnDate.getMonth() + 1);
@@ -85,9 +80,7 @@ router.route('/return/:id')
 			res.render('device', {return : true, reserve : false});
 	})
 	.post(function(req, res, next){
-		var device = devices.filter(function ( obj ) {
-		    return obj.ID == req.params.id;
-		})[0];
+		var device = getDevice(req);
 
 		var url = api + "team=facility_management&function=updateDevice";
 		var data = "id=" + req.params.id + "&name=" + device["NAME"] + 
@@ -111,6 +104,14 @@ function afterPost(error, req, res){
 	}
 
 	res.redirect('http://' + req.get('host') + '/devices');
+}
+
+function getDevice(req){
+	var device = devices.filter(function ( obj ) {
+	    return obj.ID == req.params.id;
+	})[0];
+
+	return device;
 }
 
 module.exports = router;
