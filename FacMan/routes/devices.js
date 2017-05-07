@@ -13,8 +13,7 @@ router.route('/')
 
 			res.render('devices', 
 				{
-					devices : devices,
-					deleteDevice : "deleteDevice();"
+					devices : devices
 				});
 		};
 		request(url, callback);
@@ -34,12 +33,9 @@ router.route('/newDevice')
 			url: url,
 			body: data
 		}, function(error, response, body){
-			if(error){
-				console.log('error', error);
-			}
-
-			res.redirect('http://' + req.get('host') + '/devices', '301');
-		});
+			afterPost(error, req, res);
+		}
+	);
 });
 
 // Delete an existing device
@@ -53,12 +49,9 @@ router.route('/delete/:id')
 			url: url,
 			body: data
 		}, function(error, response, body){
-			if(error){
-				console.log('error', error);
-			}
-
-			res.redirect('http://' + req.get('host') + '/devices', '301');
-		});
+			afterPost(error, req, res);
+		}
+	);
 });
 
 // Reserve a device
@@ -81,24 +74,24 @@ router.route('/reserve/:id')
 			url: url,
 			body: data
 		}, function(error, response, body){
-			if(error){
-				console.log('error', error);
-			}
-
-			res.redirect('http://' + req.get('host') + '/devices');
-	});
+			afterPost(error, req, res);
+		}
+	);
 });
 
 // Return a device
 router.route('/return/:id')
 	.get(function(req, res, next){
+			res.render('device', {return : true, reserve : false});
+	})
+	.post(function(req, res, next){
 		var device = devices.filter(function ( obj ) {
 		    return obj.ID == req.params.id;
 		})[0];
 
 		var url = api + "team=facility_management&function=updateDevice";
 		var data = "id=" + req.params.id + "&name=" + device["NAME"] + 
-					"&condition=" + device["CONDITION"] + "&checkoutDate=" + null + 
+					"&condition=" + req.body.retCondition + "&checkoutDate=" + null + 
 					"&checkedOut=" + 0 + "&returnDate=" + null;
 
 		request.post({
@@ -106,13 +99,18 @@ router.route('/return/:id')
 			url: url,
 			body: data
 		}, function(error, response, body){
-			if(error){
-				console.log('error', error);
-			}
-
-			res.redirect('http://' + req.get('host') + '/devices');
-	});
+			afterPost(error, req, res);
+		}
+	);
 });
 
+
+function afterPost(error, req, res){
+	if(error){
+		console.log('error', error)
+	}
+
+	res.redirect('http://' + req.get('host') + '/devices');
+}
 
 module.exports = router;

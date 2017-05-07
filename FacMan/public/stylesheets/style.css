@@ -56,3 +56,11 @@ footer {
 .device-list .glyphicon-remove {
   top: 3px;
 }
+
+.bottom-15 {
+  margin-bottom: 15px;
+}
+
+.table>tbody>tr>td {
+  vertical-align: middle !important;
+}
