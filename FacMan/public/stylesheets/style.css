@@ -1,15 +1,35 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 a {
   color: #00B7FF;
 }
 
-footer {
-   background-color: #F36E21;
-   bottom: 0;
+.footer {
+   background-color: #2b313b;
    height: 50px;
+   color: grey;
+}
+
+.content {
+  flex: 1;
+}
+
+.footer-text {
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.header .navbar{
+  background-color: #F36E21;
+}
+
+.navbar-brand, .navbar-default .navbar-nav>li>a {
+  color: white !important;
 }
 
 /*                    */
@@ -32,11 +52,16 @@ footer {
 /*                 */
 /* Sidebar Classes */
 /*                 */
+.twitter-wrapper {
+  height: 75vh;
+  margin-bottom: 20px;
+}
+
 .twitter-border {
   border: 2px solid #F36E21;
   border-radius: 2px;
 
-  max-height: 80%;
+  max-height: 100%;
   overflow-y: scroll;
 }
 
