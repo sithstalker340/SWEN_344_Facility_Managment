@@ -7,7 +7,7 @@ a {
 }
 
 footer {
-   background-color: #CC8855;
+   background-color: #F36E21;
    bottom: 0;
    height: 50px;
 }
@@ -32,7 +32,7 @@ footer {
 /* Sidebar Classes */
 /*                 */
 .twitter-border {
-  border: 2px solid #CC8855;
+  border: 2px solid #F36E21;
   border-radius: 2px;
 
   max-height: 80%;
