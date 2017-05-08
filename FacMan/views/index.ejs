@@ -4,23 +4,40 @@
       <% include ../views/partials/head %>
   </head>
   <body>
-    <header>
-      <% include ../views/partials/header %>
-    </header>
 
-      <div class="row content">
-        <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2">
-          <% include ../views/partials/sidebar %>
-        </div>
-        <div class="col-xs-8 col-sm-9 col-md-9 col-lg-10">
-          <div>
-            index
-          </div>
-        </div>
+  <div class="container landing-page">
+    <div class="row text-center">
+        <div class="landing-title">Facility Manangement</div>
+    </div>
+    <div class="row">
+        <form method="">
+            <div class="form-group col-xs-2 col-xs-offset-5">
+                <button class="btn btn-default pull-left" onclick="document.location.href += '/register'">Register</button>
+                <button class="btn btn-default pull-right" onclick="document.location.href += '/login'">Login</button>
+            </div>
+        </form>
+    </div>
+  </div>
+  <!-- <div class="container text-center vert-center" id="form-select">
+        <button class="btn btn-primary btn-lg" onclick="showLogin()">Login</button> 
+        <button class="btn btn-primary btn-lg reg-btn" onclick="showReg()">Register</button> 
       </div>
+      <div class="container">
+        <form id="log_form" class="vert-center col-md-5 col-sm-6 col-xs-12 col-sm-offset-3 col-xs-offset-0" action="#" style="display: none">       
+          <h2 class="">Login</h2>
+          <input type="text" class="form-control top-15" name="log_name" placeholder="Name" required="" autofocus="" />
+          <input type="password" class="form-control top-15" name="log_pass" placeholder="Password" required=""/>      
+          <button class="btn btn-primary pull-right top-15">Login</button> 
+        </form>
 
-      <% include ../views/partials/analytic %>
-      <% include ../views/partials/footer %>
+        <form id="reg_form" class="vert-center col-md-5 col-sm-6 col-xs-12 col-sm-offset-3 col-xs-offset-0" action="#" style="display: none">       
+          <h2 class="">Register</h2>
+          <input type="text" class="form-control top-15" name="reg_name" placeholder="Name" required="" autofocus="" />
+          <input type="password" class="form-control top-15" name="reg_pass" placeholder="Password" required=""/>      
+          <button class="btn btn-primary pull-right top-15">Register</button> 
+        </form>
+      </div>
+  </div> -->    
 
     <!-- <h1>Select An API Call:</h1>
 
