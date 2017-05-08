@@ -17,30 +17,41 @@
 			        <th>return date</th>
 			        <th>condition</th>
 			        <th></th>
+			        <th></th>
 	      		</tr>
 		    </thead>
 		    <tbody>
 	    		<% for(var i = 0; i < devices.length; i++) { %>
 					<tr>
-						<td onclick="document.location.href += '/<%= devices[i]["ID"] %>';">
+						<!-- <td onclick="document.location.href += '/<%= devices[i]["ID"] %>';"> -->
+						<td>
 							<%= devices[i]["NAME"]%>
 						</td>
-						<td onclick="document.location.href += '/<%= devices[i]["ID"] %>';">
+						<td>
 							<% if(devices[i]["CHECKED_OUT"] === 0){ %>
 									<span class="glyphicon glyphicon-ok "></span><span>  Available</span>
 							<% } else { %>
 									<span class="glyphicon glyphicon-remove "></span><span>  Unavailable</span>
 							<% }%>
 						</td>
-						<td onclick="document.location.href += '/<%= devices[i]["ID"] %>';">
-							<% if(devices[i]["CHECKED_OUT"] && devices[i]["CHECK_OUT_DATE"]) { %>
-								<%= devices[i]["CHECK_OUT_DATE"]%>
-							<% } else if (devices[i]["CHECKED_OUT"] && !devices[i]["CHECK_OUT_DATE"]) { %>
-								<span>no date available</span>
+						<td>
+							<% if(devices[i]["CHECKED_OUT"] !== 0) {
+									if(devices[i]["CHECK_OUT_DATE"]) { %>
+										<%= devices[i]["RETURN_DATE"]%>
+									<% } else {%>
+										<span>no date available</span>
+									<% }%>
 							<% }%>
 						</td>
-						<td onclick="document.location.href += '/<%= devices[i]["ID"] %>';">
+						<td>
 							<%= devices[i]["CONDITION"]%>
+						</td>
+						<td>
+							<% if(devices[i]["CHECKED_OUT"] !== 0) { %>
+								<button class="btn btn-success" onclick="document.location.href += '/return' + '/<%= devices[i]["ID"] %>';">Return</button>
+							<% } else { %>
+								<button class="btn btn-success" onclick="document.location.href += '/reserve' + '/<%= devices[i]["ID"] %>';">Reserve</button>
+							<% }%>
 						</td>
 						<td>
 							<button class="btn btn-danger" onclick="document.location.href += '/delete' + '/<%= devices[i]["ID"] %>';">Delete</button>

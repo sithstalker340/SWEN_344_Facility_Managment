@@ -127,19 +127,36 @@ var getDeviceTest = function(base_url) {
         });
         describe('test2', function () {
             it('should return false for a request missing parameter', function (done) {
-                request.get(base_url + getDevice, function (err, res, body) {
-                    expect(JSON.parse(body)).to.equal("Missing parameters. Function getDevice requires: id.");
+                var lastDevice;
+                async.series([
+                    function(callback) {
+                        request.get(base_url + getDevices, function (err, res, body) {
+                            var jsonObjs = JSON.parse(body);
+                            lastDevice = jsonObjs[jsonObjs.length-1];
+                            callback();
+                        })
+                    },
+                    function(callback) {
+                        request.get(base_url + getDevice+'&id='+lastDevice.ID, function (err, res, body) {
+                            if (res.statusCode == 200) {
+                                var Device = JSON.parse(body);
+                                expect(Device.ID).to.equal(lastDevice.ID);
+                            }
+                            callback();
+                        });
+                    }
+                ],function(err) { //This function gets called after the two tasks have called their "task callbacks"
+                    if (err)
+                        console.log(err);
                     done();
+
                 });
             });
         });
         describe('test3', function () {
-            it('Should get a device with id =1', function (done) {
-                request.get(base_url + getDevice + '&id=1', function (err, res, body) {
-                    if (res.statusCode == 200) {
-                        var Device = JSON.parse(body);
-                        expect(Device.ID).to.equal(1);
-                    }
+            it('should return false for a request missing parameter', function (done) {
+                request.get(base_url + getDevice , function (err, res, body) {
+                    expect(JSON.parse(body)).to.equal("Missing parameters. Function getDevice requires: id.");
                     done();
                 });
             });
