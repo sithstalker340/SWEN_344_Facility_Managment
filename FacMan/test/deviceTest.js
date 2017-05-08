@@ -16,7 +16,9 @@ var addDevice = '&function=addDevice';
 var deleteDevice = '&function=deleteDevice';
 var updateDevice = '&function=updateDevice';
 
-
+var add_device_error_msg = 'Missing parameters. Function addDevice requires: name, condition.';
+var delete_device_error_msg = 'Missing parameter. Function deleteDevice requires: uid.';
+var update_device_error_msg = 'Missing parameters. Function updateDevice requires: id, condition, checkoutDate, name, userId.';
 var getDevicesfunciton = function (base_url,callback) {
     request.get(base_url + getDevices, function (err, res, body) {
         return callback(res);
@@ -29,7 +31,7 @@ var updateDeviceTest = function(base_url) {
         describe('test1', function() {
             it('should return false for no parameter', function (done) {
                 request.post({url:base_url+updateDevice, form: {}}, function (err, res, body){
-                    expect(body).to.equal('false');
+                    expect(JSON.parse(body)).to.equal(update_device_error_msg);
                     done();
                 });
             });
@@ -37,12 +39,13 @@ var updateDeviceTest = function(base_url) {
         describe('test2', function() {
             it('should return false when the system update a device that does not exist. ', function (done) {
                 request.post({url:base_url+updateDevice, form: {uid:122222, condition:'good'}}, function (err, res, body){
-                    expect(body).to.equal('false');
+                    expect(JSON.parse(body)).to.equal(update_device_error_msg);
                     done();
                 });
             });
         });
         describe('test3', function() {
+            it('should update last device on the list with condition:very good, name:IPhone8', function (done) {
                 var deviceToUpdate;
                 async.series([
                     function(callback) {
@@ -54,19 +57,16 @@ var updateDeviceTest = function(base_url) {
                         })
                     },
                     function(callback) {
-                        request.post({url:base_url+updateDevice, form: {id:deviceToUpdate.ID, condition:'very good', name:'IPhone8'}}, function (err, res, body){
+                        request.post({url:base_url+updateDevice, form: {id:deviceToUpdate.ID, condition:'very good',checkoutDate:'11/11/2017' ,name:'IPhone8',userId:"15"}}, function (err, res, body){
                             expect(res.statusCode).to.equal(200);
                             callback();
                         });
                     },function(callback) {
-                        it("shall do this");
-                        it('should update device a device id:'+deviceToUpdate.ID+ 'with condition:very good, name:IPhone8', function (callback) {
-                            request.get(base_url + getDevice + '&id='+deviceToUpdate.ID, function (err, res, body) {
-                                var deviceAfterUpdate = JSON.parse(body);
-                                console.log(deviceAfterUpdate)
-    ;                           expect(deviceAfterUpdate['CONDITION']).to.equal('very good');
-                                expect(deviceAfterUpdate['NAME']).to.equal('IPhone8');
-                            });
+                        request.get(base_url + getDevice + '&id='+deviceToUpdate.ID, function (err, res, body) {
+                            var deviceAfterUpdate = JSON.parse(body);
+                            console.log(deviceAfterUpdate);
+                            expect(deviceAfterUpdate['CONDITION']).to.equal('very good');
+                            expect(deviceAfterUpdate['NAME']).to.equal('IPhone8');
                             callback();
                         });
                     }
@@ -76,12 +76,12 @@ var updateDeviceTest = function(base_url) {
                     done();
 
                 });
-
+            });
         });
         describe('test4', function() {
             it('should return false be with only parameter uid:1', function (done) {
                 request.post({url:base_url+updateDevice, form: {uid:1}}, function (err, res, body){
-                    expect(body).to.equal('false');
+                    expect(JSON.parse(body)).to.equal(update_device_error_msg);
                     done();
                 });
             });
@@ -89,7 +89,7 @@ var updateDeviceTest = function(base_url) {
         describe('test5', function() {
             it('should return false be with only parameter condition:good', function (done) {
                 request.post({url:base_url+updateDevice, form: {condition:'good'}}, function (err, res, body){
-                    expect(body).to.equal('false');
+                    expect(JSON.parse(body)).to.equal(update_device_error_msg);
 
                     done();
                 });
@@ -127,19 +127,36 @@ var getDeviceTest = function(base_url) {
         });
         describe('test2', function () {
             it('should return false for a request missing parameter', function (done) {
-                request.get(base_url + getDevice, function (err, res, body) {
-                    expect(JSON.parse(body)).to.equal("Missing parameters. Function getDevice requires: id.");
+                var lastDevice;
+                async.series([
+                    function(callback) {
+                        request.get(base_url + getDevices, function (err, res, body) {
+                            var jsonObjs = JSON.parse(body);
+                            lastDevice = jsonObjs[jsonObjs.length-1];
+                            callback();
+                        })
+                    },
+                    function(callback) {
+                        request.get(base_url + getDevice+'&id='+lastDevice.ID, function (err, res, body) {
+                            if (res.statusCode == 200) {
+                                var Device = JSON.parse(body);
+                                expect(Device.ID).to.equal(lastDevice.ID);
+                            }
+                            callback();
+                        });
+                    }
+                ],function(err) { //This function gets called after the two tasks have called their "task callbacks"
+                    if (err)
+                        console.log(err);
                     done();
+
                 });
             });
         });
         describe('test3', function () {
-            it('Should get a device with id =1', function (done) {
-                request.get(base_url + getDevice + '&id=1', function (err, res, body) {
-                    if (res.statusCode == 200) {
-                        var Device = JSON.parse(body);
-                        expect(Device.ID).to.equal(1);
-                    }
+            it('should return false for a request missing parameter', function (done) {
+                request.get(base_url + getDevice , function (err, res, body) {
+                    expect(JSON.parse(body)).to.equal("Missing parameters. Function getDevice requires: id.");
                     done();
                 });
             });
@@ -169,7 +186,7 @@ var addDeviceTest = function(base_url) {
         describe('test1', function() {
             it('should return false for no parameter', function (done) {
                 request.post({url:base_url+addDevice, form: {}}, function (err, res, body){
-                    expect(JSON.parse(body)).to.equal('Missing parameters. Function addDevice requires: name, condition.');
+                    expect(JSON.parse(body)).to.equal(add_device_error_msg);
                     done();
                 });
             });
@@ -208,7 +225,7 @@ var addDeviceTest = function(base_url) {
         describe('test4', function() {
             it('should return false be with only parameter name:phone', function (done) {
                 request.post({url:base_url+addDevice, form: {name:'phone'}}, function (err, res, body){
-                    expect(JSON.parse(body)).to.equal(false);
+                    expect(JSON.parse(body)).to.equal(add_device_error_msg);
                     done();
                 });
             });
@@ -216,7 +233,7 @@ var addDeviceTest = function(base_url) {
         describe('test5', function() {
             it('should return false be with only parameter condition:good', function (done) {
                 request.post({url:base_url+addDevice, form: {condition:'good'}}, function (err, res, body){
-                    expect(JSON.parse(body)).to.equal(false);
+                    expect(JSON.parse(body)).to.equal(add_device_error_msg);
                     done();
                 });
             });
@@ -230,7 +247,7 @@ var deleteDeviceTest = function (base_url) {
         describe('test1', function() {
             it('should return false for no parameter', function (done) {
                 request.post({url:base_url+deleteDevice, form: {}}, function (err, res, body){
-                    expect(body).to.equal('Missing parameters. Function getDevice requires: id.');
+                    expect(JSON.parse(body)).to.equal(delete_device_error_msg);
                     done();
                 });
             });
@@ -277,7 +294,7 @@ var deleteDeviceTest = function (base_url) {
         describe('test4', function() {
             it('should return false be with wrong parameter to delete a device', function (done) {
                 request.post({url:base_url+deleteDevice, form: {name:'phone'}}, function (err, res, body){
-                    expect(JSON.parse(body)).to.equal(false);
+                    expect(JSON.parse(body)).to.equal(delete_device_error_msg);
                     done();
                 });
             });
