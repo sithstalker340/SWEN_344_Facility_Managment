@@ -1,16 +1,21 @@
 <div>
-	<table border="1">
-		<tr>
-			<th>Building</th>
-			<th>Room Num</th>
-			<th>Delete?</th>
-		<tr>
-		<% for (var i = 0; i < classrooms.length; i++) { %>
-			<tr class="classroomListing" onclick="document.location.href += '/<%= classrooms[i]["ID"] %>';" >
-				<td><%= classrooms[i]["BUILDING_ID"] %></td>
-				<td><%= classrooms[i]["ROOM_NUM"] %></td>
-				<td class="deleteClassroom">Delete</td>
-			</tr>
-		<% } %>
-	</table>
+	<div class="text-capitalize">
+		<h3 class="col-xs-3 pull-left" style="white-space: nowrap;">classroom list</h3>
+		<table class="classroom-list table table-striped">
+		    <thead>
+	      		<tr>
+			        <th>building</th>
+			        <th>room number</th>
+	      		</tr>
+		    </thead>
+		    <tbody>
+				<% for (var i = 0; i < classrooms.length; i++) { %>
+					<tr class="classroomListing" onclick="document.location.href += '/<%= classrooms[i]["ID"] %>';" >
+						<td><%= classrooms[i]["BUILDING_ID"] %></td>
+						<td><%= classrooms[i]["ROOM_NUM"] %></td>
+					</tr>
+				<% } %>
+		    </tbody>
+	  	</table>
+	</div>
 </div>

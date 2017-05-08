@@ -58,6 +58,18 @@ footer {
   top: 3px;
 }
 
+.classroomListing {
+	cursor: pointer;
+}
+
+.classroomListing:hover {
+	background-color: #CCCCCC !important;
+}
+
+.classroomListing:active {
+	background-color: #888888 !important;
+}
+
 /*                 */
 /* New Device Page */
 /*                 */
