@@ -1,164 +1,170 @@
 <% var dbUrl = "http://vm344f.se.rit.edu/API/API.php?team=facility_management&"; %>
 <html lang="en">
   <head>
-      <% include ../views/partials/head %>
+	  <% include ../views/partials/head %>
   </head>
   <body>
 
   <div class="container landing-page">
-    <div class="row text-center">
-        <div class="landing-title">Facility Manangement</div>
-    </div>
-    <div class="row">
-        <form method="">
-            <div class="form-group col-xs-2 col-xs-offset-5">
-                <button class="btn btn-default pull-left" onclick="document.location.href += '/register'">Register</button>
-                <button class="btn btn-default pull-right" onclick="document.location.href += '/login'">Login</button>
-            </div>
-        </form>
-    </div>
-  </div>
+	<div class="row text-center">
+		<div class="landing-title">Facility Manangement</div>
+	</div>
+	<div>
+		<form method="post" class="col-xs-6 col-xs-offset-3">
+			<h3>Login</h3>
+			<div class="form-group">
+		  		<label for="username">Username</label>
+	  			<input class="form-control" type="text" name="username">
+			</div>
+			<div class="form-group">
+		  		<label for="password">Password</label>
+		  		<input class="form-control" type="password" name="password">
+			</div>
+			<button class="btn btn-primary pull-left" onclick="document.location.href += '/register'">Register</button>
+			<button class="btn btn-primary pull-right">Login</button>
+		</form>
+	</div>
   <!-- <div class="container text-center vert-center" id="form-select">
-        <button class="btn btn-primary btn-lg" onclick="showLogin()">Login</button> 
-        <button class="btn btn-primary btn-lg reg-btn" onclick="showReg()">Register</button> 
-      </div>
-      <div class="container">
-        <form id="log_form" class="vert-center col-md-5 col-sm-6 col-xs-12 col-sm-offset-3 col-xs-offset-0" action="#" style="display: none">       
-          <h2 class="">Login</h2>
-          <input type="text" class="form-control top-15" name="log_name" placeholder="Name" required="" autofocus="" />
-          <input type="password" class="form-control top-15" name="log_pass" placeholder="Password" required=""/>      
-          <button class="btn btn-primary pull-right top-15">Login</button> 
-        </form>
+		<button class="btn btn-primary btn-lg" onclick="showLogin()">Login</button> 
+		<button class="btn btn-primary btn-lg reg-btn" onclick="showReg()">Register</button> 
+	  </div>
+	  <div class="container">
+		<form id="log_form" class="vert-center col-md-5 col-sm-6 col-xs-12 col-sm-offset-3 col-xs-offset-0" action="#" style="display: none">       
+		  <h2 class="">Login</h2>
+		  <input type="text" class="form-control top-15" name="log_name" placeholder="Name" required="" autofocus="" />
+		  <input type="password" class="form-control top-15" name="log_pass" placeholder="Password" required=""/>      
+		  <button class="btn btn-primary pull-right top-15">Login</button> 
+		</form>
 
-        <form id="reg_form" class="vert-center col-md-5 col-sm-6 col-xs-12 col-sm-offset-3 col-xs-offset-0" action="#" style="display: none">       
-          <h2 class="">Register</h2>
-          <input type="text" class="form-control top-15" name="reg_name" placeholder="Name" required="" autofocus="" />
-          <input type="password" class="form-control top-15" name="reg_pass" placeholder="Password" required=""/>      
-          <button class="btn btn-primary pull-right top-15">Register</button> 
-        </form>
-      </div>
+		<form id="reg_form" class="vert-center col-md-5 col-sm-6 col-xs-12 col-sm-offset-3 col-xs-offset-0" action="#" style="display: none">       
+		  <h2 class="">Register</h2>
+		  <input type="text" class="form-control top-15" name="reg_name" placeholder="Name" required="" autofocus="" />
+		  <input type="password" class="form-control top-15" name="reg_pass" placeholder="Password" required=""/>      
+		  <button class="btn btn-primary pull-right top-15">Register</button> 
+		</form>
+	  </div>
   </div> -->    
 
-    <!-- <h1>Select An API Call:</h1>
+	<!-- <h1>Select An API Call:</h1>
 
 
-    <div>
-      <h3>Get All Devices</h3>
-      <form method="get" action='<%=dbUrl%>'>
-        <input type="hidden" name="team" value="facility_management">
-        <input type="hidden" name="function" value="getDevices">
-        <input type="submit" value="Submit">
-      </form>
-    </div>
+	<div>
+	  <h3>Get All Devices</h3>
+	  <form method="get" action='<%=dbUrl%>'>
+		<input type="hidden" name="team" value="facility_management">
+		<input type="hidden" name="function" value="getDevices">
+		<input type="submit" value="Submit">
+	  </form>
+	</div>
 
-    <div>
-      <h3>Get Single Device</h3>
-      <form method="get" action='<%=dbUrl%>'>
-        <input type="hidden" name="team" value="facility_management">
-        <input type="hidden" name="function" value="getDevice">
-        Device ID: <input type="number" name="id">
-        <input type="submit" value="Submit">
-      </form>
-    </div>
+	<div>
+	  <h3>Get Single Device</h3>
+	  <form method="get" action='<%=dbUrl%>'>
+		<input type="hidden" name="team" value="facility_management">
+		<input type="hidden" name="function" value="getDevice">
+		Device ID: <input type="number" name="id">
+		<input type="submit" value="Submit">
+	  </form>
+	</div>
 
-    <div>
-      <h3>Add Device</h3>
-      <form method="post" action="<%=dbUrl%>function=addDevice">
-        Device Name: <input type="text" name="name"><br>
-        Condition: <input type="text" name="condition"><br>
-        <input type="submit" value="Submit">
-      </form>
-    </div>
+	<div>
+	  <h3>Add Device</h3>
+	  <form method="post" action="<%=dbUrl%>function=addDevice">
+		Device Name: <input type="text" name="name"><br>
+		Condition: <input type="text" name="condition"><br>
+		<input type="submit" value="Submit">
+	  </form>
+	</div>
 
-    <div>
-      <h3>Update Device</h3>
-      <form method="post" action="<%=dbUrl%>function=updateDevice">
-        Device ID: <input type="number" name="id"><br>
-        Device Name: <input type="text" name="name"><br>
-        Condition: <input type="text" name="condition"><br>
-        Check Out Date: <input type="text" name="checkoutDate"><br>
-        User ID: <input type="number" name="userId"><br>
-        <input type="submit" value="Submit">
-      </form>
-    </div>
+	<div>
+	  <h3>Update Device</h3>
+	  <form method="post" action="<%=dbUrl%>function=updateDevice">
+		Device ID: <input type="number" name="id"><br>
+		Device Name: <input type="text" name="name"><br>
+		Condition: <input type="text" name="condition"><br>
+		Check Out Date: <input type="text" name="checkoutDate"><br>
+		User ID: <input type="number" name="userId"><br>
+		<input type="submit" value="Submit">
+	  </form>
+	</div>
 
-    <div>
-      <h3>Delete Device</h3>
-      <form method="post" action="<%=dbUrl%>function=deleteDevice">
-        Device ID: <input type="text" name="id"><br>
-        <input type="submit" value="Submit">
-      </form>
-    </div>
+	<div>
+	  <h3>Delete Device</h3>
+	  <form method="post" action="<%=dbUrl%>function=deleteDevice">
+		Device ID: <input type="text" name="id"><br>
+		<input type="submit" value="Submit">
+	  </form>
+	</div>
 
-    <div>
-      <h3>Get All Classrooms</h3>
-      <button type="button" onclick="location.href = '<%=dbUrl%>function=getClassrooms';">getClassrooms</button>
-      <br><br>
-    </div>
+	<div>
+	  <h3>Get All Classrooms</h3>
+	  <button type="button" onclick="location.href = '<%=dbUrl%>function=getClassrooms';">getClassrooms</button>
+	  <br><br>
+	</div>
 
-    <div>
-      <h3>Get Single Classroom</h3>
-      <form method="get" action='<%=dbUrl%>'>
-        <input type="hidden" name="team" value="facility_management">
-        <input type="hidden" name="function" value="getClassroom">
-        Classroom ID: <input type="number" name="id">
-        <input type="submit" value="Submit">
-      </form>
-    </div>
+	<div>
+	  <h3>Get Single Classroom</h3>
+	  <form method="get" action='<%=dbUrl%>'>
+		<input type="hidden" name="team" value="facility_management">
+		<input type="hidden" name="function" value="getClassroom">
+		Classroom ID: <input type="number" name="id">
+		<input type="submit" value="Submit">
+	  </form>
+	</div>
 
-    <div>
-      <h3>Add Classroom</h3>
-      <form method="post" action="<%=dbUrl%>function=addClassroom">
-        Building #: <input type="number" name="building"><br>
-        Room #: <input type="number" name="room"><br>
-        Capacity: <input type="number" name="capacity"><br>
-        <input type="submit" value="Submit">
-      </form>
-    </div>
+	<div>
+	  <h3>Add Classroom</h3>
+	  <form method="post" action="<%=dbUrl%>function=addClassroom">
+		Building #: <input type="number" name="building"><br>
+		Room #: <input type="number" name="room"><br>
+		Capacity: <input type="number" name="capacity"><br>
+		<input type="submit" value="Submit">
+	  </form>
+	</div>
 
-    <div>
-      <h3>Update Classroom</h3>
-      <form method="post" action="<%=dbUrl%>function=updateClassroom">
-        Classroom ID: <input type="number" name="id"><br>
-        Building #: <input type="number" name="building"><br>
-        Room #: <input type="number" name="room"><br>
-        Capacity: <input type="number" name="capacity"><br>
-        <input type="submit" value="Submit">
-      </form>
-    </div>
+	<div>
+	  <h3>Update Classroom</h3>
+	  <form method="post" action="<%=dbUrl%>function=updateClassroom">
+		Classroom ID: <input type="number" name="id"><br>
+		Building #: <input type="number" name="building"><br>
+		Room #: <input type="number" name="room"><br>
+		Capacity: <input type="number" name="capacity"><br>
+		<input type="submit" value="Submit">
+	  </form>
+	</div>
 
-    <div>
-      <h3>Remove Classroom</h3>
-      <form method="post" action="<%=dbUrl%>function=deleteClassroom">
-        Classroom ID: <input type="text" name="id"><br>
-        <input type="submit" value="Submit">
-      </form>
-    </div>
+	<div>
+	  <h3>Remove Classroom</h3>
+	  <form method="post" action="<%=dbUrl%>function=deleteClassroom">
+		Classroom ID: <input type="text" name="id"><br>
+		<input type="submit" value="Submit">
+	  </form>
+	</div>
 
-    <div>
-      <h3>Reserve Classroom</h3>
-      <form method="post" action="<%=dbUrl%>function=reserveClassroom">
-        Classroom ID: <input type="number" name="id"><br>
-        Day: <input type="text" name="day"><br>
-        Section: <input type="text" name="section"><br>
-        Timeslot: <input type="number" name="timeslot"><br>
-        Duration: <input type="number" name="length"><br>
-        <input type="submit" value="Submit">
-      </form>
-    </div>
+	<div>
+	  <h3>Reserve Classroom</h3>
+	  <form method="post" action="<%=dbUrl%>function=reserveClassroom">
+		Classroom ID: <input type="number" name="id"><br>
+		Day: <input type="text" name="day"><br>
+		Section: <input type="text" name="section"><br>
+		Timeslot: <input type="number" name="timeslot"><br>
+		Duration: <input type="number" name="length"><br>
+		<input type="submit" value="Submit">
+	  </form>
+	</div>
 
-    <div>
-      <h3>Search Classrooms</h3>
-      <form method="get" action="<%=dbUrl%>">
-        <input type="hidden" name="team" value="facility_management">
-        <input type="hidden" name="function" value="searchClassrooms">
-        Day: <input type="text" name="day"><br>
-        Semester: <input type="text" name="semester"><br>
-        Length: <input type="number" name="length"><br>
-        Size: <input type="number" name="size"><br>
-        <input type="submit" value="Submit">
-      </form>
-    </div> -->
+	<div>
+	  <h3>Search Classrooms</h3>
+	  <form method="get" action="<%=dbUrl%>">
+		<input type="hidden" name="team" value="facility_management">
+		<input type="hidden" name="function" value="searchClassrooms">
+		Day: <input type="text" name="day"><br>
+		Semester: <input type="text" name="semester"><br>
+		Length: <input type="number" name="length"><br>
+		Size: <input type="number" name="size"><br>
+		<input type="submit" value="Submit">
+	  </form>
+	</div> -->
 
    
   </body>
