@@ -8,9 +8,6 @@ var users = {};
 // api = "http://vm344f.se.rit.edu/API/API.php?"; //SWITCH TO THIS WHEN WE ARE DONE
 api = "https://www.se.rit.edu/~axv3658/project/API/API.php?"; //TESTING API
 
-router.use('/devices', require('./devices'));
-router.use('/classrooms', require('./classrooms'));
-
 /* GET home page. */
 router.route('/')
 	.get(function(req, res, next){
@@ -31,8 +28,7 @@ router.route('/')
 
 			if(response && response.body !== "null"){
 				user = JSON.parse(body);
-				req.session.uid = user.ID;
-				req.session.test = "testing";
+				res.cookie("uid", user.ID);
 				res.redirect('http://' + req.get('host') + '/classrooms');
 			} else {
 				res.render('index', {loginError : true});
@@ -41,5 +37,22 @@ router.route('/')
 	);
 });
 
+router.get('*', function(req, res, next) {
+	if (req.cookies["uid"]) {
+		next();
+	} else {
+		res.redirect('/');
+	}
+});
+
+
+router.get('/logout', function(req, res, next) {
+	res.clearCookie("uid");
+	res.redirect('/');
+});
+
+
+router.use('/devices', require('./devices'));
+router.use('/classrooms', require('./classrooms'));
 
 module.exports = router;
