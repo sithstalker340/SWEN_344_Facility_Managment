@@ -9,23 +9,23 @@
         <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2">
             <% include ../views/partials/sidebar %>
         </div>
-        
+        <% include ../views/partials/newReservation%>
         <div class="col-xs-8 col-sm-9 col-md-9 col-lg-10">
+            <div class="row">
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#reserve">Make Reservations</button>
+                <button class="btn">Remove Classroom</button><%= %>
+            </div>
             <p><strong>Building ID:</strong> <%= classroom["classroom"]["BUILDING_ID"] %></p>
             <p><strong>Room Number:</strong> <%= classroom["classroom"]["ROOM_NUM"] %></p>
             <p><strong>Capacity:</strong> <%= classroom["classroom"]["CAPACITY"] %></p>
-            
+            <%console.log(classroom)%>
             <%if(Object.keys(classroom["reserve"]).length > 0){%> 
                 <p><strong>Reservations for this Classroom:</strong></p><ul>
                 <%for(i in classroom["reserve"]) { %>
                     <li><%= i + ": " + classroom["reserve"][i] %></li>
                 <% } }%>
-
             </ul>
-            <p><strong>Remove Classroom</strong><%= %></p>
-            <p><strong>Make Reservations</strong><%= %></p>
-            <ul>
-            </ul>
+            <% include ../views/partials/reservationList %>
         </div>
     </div>
 

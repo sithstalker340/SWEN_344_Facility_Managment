@@ -1,0 +1,23 @@
+<div>
+    <div class="text-capitalize">
+        <h3 class="col-xs-3 pull-left" style="white-space: nowrap;">Reservation List</h3>
+        <table class="classroom-list table table-striped">
+            <thead>
+            <tr>
+                <th>Time Slot Start</th>
+                <th>Duration</th>
+                <th>Day of Week</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for (var i = 0; i < Object.keys(classroom["reserve"]).length; i++) { %>
+            <tr>
+                <td><%= classroom["reserve"]["TIME_SLOT_START"] %></td>
+                <td><%= classroom["reserve"]["DURATION"] %></td>
+                <td><%= classroom["reserve"]["DAY_OF_WEEK"] %></td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
