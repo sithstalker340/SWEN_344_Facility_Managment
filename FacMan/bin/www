@@ -121,7 +121,7 @@ function onListening() {
          else {
            weathermoji = "";
          }
-         bot.tweet("Weather report: " + weatherPayload.weather[0].main + weathermoji + " with a temperature of " + Math.round(parseInt(weatherPayload.main.temp) * (9/5) - 459.67) + "°F");
+         bot.tweet("Weather Report: " + weatherPayload.weather[0].main + weathermoji + " with a temperature of " + Math.round(parseInt(weatherPayload.main.temp) * (9/5) - 459.67) + "°F");
        }
      }
    };
@@ -137,8 +137,9 @@ var windAlertAction = bot.addAction("windAlert", function(twitter, action, tweet
     if (this.readyState == 4 && this.status == 200) {
       alertPayload = JSON.parse(this.responseText);
       if(alertPayload.weather) {
-        if(parseInt(weatherPayload.wind.speed) >= 4.5)
-        bot.tweet("Alert! " + "Winds of " + weatherPayload.wind.speed + "mph 🌬️");
+        if(parseInt(alertPayload.wind.speed) >= 4.5) {
+          bot.tweet("Alert! " + "Winds of " + alertPayload.wind.speed + "mph 🌬️");
+        }
       }
     }
   };
