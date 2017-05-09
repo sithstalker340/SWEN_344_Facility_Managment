@@ -17,9 +17,11 @@
                 <button  class="btn" onclick="document.location.href += '/newReservation'">Make Reservations</button>
                 <button class="btn" onclick="document.location.href += '/delete'">Delete Classroom</button>
             </div>
-            <p><strong>Building ID:</strong> <%= classroom["classroom"]["BUILDING_ID"] %></p>
-            <p><strong>Room Number:</strong> <%= classroom["classroom"]["ROOM_NUM"] %></p>
-            <p><strong>Capacity:</strong> <%= classroom["classroom"]["CAPACITY"] %></p>
+            <dl>
+                <dt ><strong>Building ID:</strong></dt> <dd><%= classroom["classroom"]["BUILDING_ID"] %></dd>
+                <dt><strong>Room Number:</strong></dt> <dd><%= classroom["classroom"]["ROOM_NUM"] %></dd>
+                <dt><strong>Capacity:</strong></dt> <dd><%= classroom["classroom"]["CAPACITY"] %></dd>
+            </dl>
             <%if(Object.keys(classroom["reserve"]).length > 0){%> 
                 <p><strong>Reservations for this Classroom:</strong></p><ul>
                 <%for(i in classroom["reserve"]) { %>
