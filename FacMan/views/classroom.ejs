@@ -6,25 +6,26 @@
     </header>
 
     <div class="row content">
+
         <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2">
             <% include ../views/partials/sidebar %>
         </div>
 
         <div class="col-xs-8 col-sm-9 col-md-9 col-lg-10">
             <div class="row">
+                <h2>Classroom <%=classroom["classroom"]["ID"] %></h2>
                 <button  class="btn" onclick="document.location.href += '/newReservation'">Make Reservations</button>
                 <button class="btn" onclick="document.location.href += '/delete'">Delete Classroom</button>
             </div>
-            <p><strong>Building ID:</strong> <%= classroom["classroom"]["BUILDING_ID"] %></p>
-            <p><strong>Room Number:</strong> <%= classroom["classroom"]["ROOM_NUM"] %></p>
-            <p><strong>Capacity:</strong> <%= classroom["classroom"]["CAPACITY"] %></p>
-            <%if(Object.keys(classroom["reserve"]).length > 0){%> 
-                <p><strong>Reservations for this Classroom:</strong></p><ul>
-                <%for(i in classroom["reserve"]) { %>
-                    <li><%= i + ": " + classroom["reserve"][i] %></li>
-                <% } }%>
-            </ul>
-            <% include ../views/partials/reservationList %>
+            <dl>
+                <dt ><strong>Building ID:</strong></dt> <dd><%= classroom["classroom"]["BUILDING_ID"] %></dd>
+                <dt><strong>Room Number:</strong></dt> <dd><%= classroom["classroom"]["ROOM_NUM"] %></dd>
+                <dt><strong>Capacity:</strong></dt> <dd><%= classroom["classroom"]["CAPACITY"] %></dd>
+            </dl>
+            <%if(Object.keys(classroom["reserve"]).length > 0){%>
+                <p><strong>Reservations for this Classroom:</strong></p>
+                <% include ../views/partials/reservationList %>
+                <% } %>
         </div>
     </div>
 

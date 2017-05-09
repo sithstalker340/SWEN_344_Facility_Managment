@@ -14,7 +14,7 @@ router.get('/:id', function (req, res, next) {
         //console.log(body);
         data['reserve'] = JSON.parse(body);
 
-        console.log(body);
+        console.log(data['reserve']);
 
         res.render('classroom', {"classroom": data});
     };
