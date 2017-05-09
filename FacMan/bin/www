@@ -130,14 +130,14 @@ function onListening() {
  });
 bot.now(genWeatherAction);
 
-// Tweet alert if wind gets at or above 10mph.
+// Tweet alert if wind gets at or above 10mph (~4.5m/s).
 var windAlertAction = bot.addAction("windAlert", function(twitter, action, tweet) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       alertPayload = JSON.parse(this.responseText);
       if(alertPayload.weather) {
-        if(parseInt(weatherPayload.wind.speed) >= 10)
+        if(parseInt(weatherPayload.wind.speed) >= 4.5)
         bot.tweet("Alert! " + "Winds of " + weatherPayload.wind.speed + "mph 🌬️");
       }
     }
