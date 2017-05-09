@@ -1,13 +1,7 @@
 <div>
-	<div>
-		<h3 class="text-capitalize">my checked out devices</h3>
-		not implemented
-	</div>
-	<hr>
 	<div class="text-capitalize">
 		<div class="row">
-			<h3 class="col-xs-3 pull-left">device list</h3>
-			<button class="btn btn-default pull-right new-device" onclick="document.location.href += '/newDevice'"><span class="glyphicon glyphicon-plus"></span>Add Device</button>
+			<h3 class="col-xs-3 pull-left">my devices</h3>
 		</div>
 		<table class="device-list table table-striped">
 		    <thead>
@@ -17,7 +11,72 @@
 			        <th>return date</th>
 			        <th>condition</th>
 			        <th></th>
+					<% if (user.ROLE == "Admin") { %>
 			        <th></th>
+					<% } %>
+	      		</tr>
+		    </thead>
+		    <tbody>
+	    		<% for(var i = 0; i < myDevices.length; i++) { %>
+					<tr>
+						<td>
+							<%= myDevices[i]["NAME"]%>
+						</td>
+						<td>
+							<% if(myDevices[i]["CHECKED_OUT"] === 0){ %>
+									<span class="glyphicon glyphicon-ok "></span><span>  Available</span>
+							<% } else { %>
+									<span class="glyphicon glyphicon-remove "></span><span>  Unavailable</span>
+							<% }%>
+						</td>
+						<td>
+							<% if(myDevices[i]["CHECKED_OUT"] !== 0) {
+									if(myDevices[i]["CHECK_OUT_DATE"]) { %>
+										<%= myDevices[i]["RETURN_DATE"]%>
+									<% } else {%>
+										<span>no date available</span>
+									<% }%>
+							<% }%>
+						</td>
+						<td>
+							<%= myDevices[i]["CONDITION"]%>
+						</td>
+						<td>
+							<% if(myDevices[i]["CHECKED_OUT"] !== 0) { %>
+								<button class="btn btn-success" onclick="document.location.href += '/return' + '/<%= myDevices[i]["ID"] %>';">Return</button>
+							<% } else { %>
+								<button class="btn btn-success" onclick="document.location.href += '/reserve' + '/<%= myDevices[i]["ID"] %>';">Reserve</button>
+							<% }%>
+						</td>
+						<% if (user.ROLE == "Admin") { %>
+						<td>
+							<button class="btn btn-danger" onclick="document.location.href += '/delete' + '/<%= myDevices[i]["ID"] %>';">Delete</button>
+						</td>
+						<% } %>
+					</tr></a>
+				<% } %>
+		    </tbody>
+	  	</table>
+	</div>
+	<hr>
+	<div class="text-capitalize">
+		<div class="row">
+			<h3 class="col-xs-3 pull-left">device list</h3>
+			<% if (user.ROLE == "Admin") { %>
+			<button class="btn btn-default pull-right new-device" onclick="document.location.href += '/newDevice'"><span class="glyphicon glyphicon-plus"></span>Add Device</button>
+			<% } %>
+		</div>
+		<table class="device-list table table-striped">
+		    <thead>
+	      		<tr>
+			        <th>device name</th>
+			        <th>availability</th>
+			        <th>return date</th>
+			        <th>condition</th>
+			        <th></th>
+					<% if (user.ROLE == "Admin") { %>
+			        <th></th>
+					<% } %>
 	      		</tr>
 		    </thead>
 		    <tbody>
@@ -52,9 +111,11 @@
 								<button class="btn btn-success" onclick="document.location.href += '/reserve' + '/<%= devices[i]["ID"] %>';">Reserve</button>
 							<% }%>
 						</td>
+						<% if (user.ROLE == "Admin") { %>
 						<td>
 							<button class="btn btn-danger" onclick="document.location.href += '/delete' + '/<%= devices[i]["ID"] %>';">Delete</button>
 						</td>
+						<% } %>
 					</tr></a>
 				<% } %>
 		    </tbody>

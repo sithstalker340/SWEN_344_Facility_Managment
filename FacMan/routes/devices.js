@@ -7,11 +7,22 @@ var devices = {};
 // Default landing page
 router.route('/')
 	.get(function(req, res, next) {
-		var url = api + "team=facility_management&function=getDevices";
+		var urlA = api + "team=facility_management&function=getDevices";
+		var userId = req.cookies["uid"];
 		request.get(
-			url, function(error, response, body){
+			urlA, function(error, response, body){
 				devices = JSON.parse(body);
-				res.render('devices', { devices : devices });
+				myDevices = devices.filter(function(device) {
+					return device.USER_ID == userId;
+				});
+				
+				var urlB = api + "team=general&function=getUser&userID=" + userId;
+				request.get(urlB, function(error, response, body) {
+					user = JSON.parse(body);
+					
+					res.render('devices', { devices : devices, myDevices: myDevices, user : user });
+
+				});
 			}
 		);
 });
