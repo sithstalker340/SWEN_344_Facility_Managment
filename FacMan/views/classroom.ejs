@@ -22,13 +22,10 @@
                 <dt><strong>Room Number:</strong></dt> <dd><%= classroom["classroom"]["ROOM_NUM"] %></dd>
                 <dt><strong>Capacity:</strong></dt> <dd><%= classroom["classroom"]["CAPACITY"] %></dd>
             </dl>
-            <%if(Object.keys(classroom["reserve"]).length > 0){%> 
-                <p><strong>Reservations for this Classroom:</strong></p><ul>
-                <%for(i in classroom["reserve"]) { %>
-                    <li><%= i + ": " + classroom["reserve"][i] %></li>
-                <% } }%>
-            </ul>
-            <% include ../views/partials/reservationList %>
+            <%if(Object.keys(classroom["reserve"]).length > 0){%>
+                <p><strong>Reservations for this Classroom:</strong></p>
+                <% include ../views/partials/reservationList %>
+                <% } %>
         </div>
     </div>
 
