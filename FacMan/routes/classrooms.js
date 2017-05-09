@@ -42,23 +42,36 @@ router.get('/', function (req, res, next) {
 
 // Add a new reservation
 router.route('/:id/newReservation')
-        .get(function(req, res, next){
-            res.render('newReservation');
-        }).post(function(req, res, next){
+    .get(function (req, res, next) {
+        res.render('newReservation');
+    }).post(function (req, res, next) {
 
-        var url = api + "team=facility_management&function=reserveClassroom";
-        var data = "id=" + req.body.id + "&day=" + req.body.section + "&section=" + req.body.section + "&timeslot=" + req.body.timeslot + "&length=" + req.body.length;
+    var url = api + "team=facility_management&function=reserveClassroom";
+    var data = "id=" + req.params.id + "&day=" + req.body.section + "&section=" + req.body.section + "&timeslot=" + req.body.timeslot + "&length=" + req.body.length;
+
+    request.post({
+            headers: {'content-type': 'application/x-www-form-urlencoded'},
+            url: url,
+            body: data
+        }, function (error, response, body) {
+            afterPost(error, req, res, req.params.id);
+        }
+    );
+});
+router.route('/:id/delete/')
+    .get(function (req, res, next) {
+        var url = api + "team=facility_management&function=deleteClassroom";
+        var data = "id=" + req.params.id;
 
         request.post({
                 headers: {'content-type': 'application/x-www-form-urlencoded'},
                 url: url,
                 body: data
-            }, function (error, response, body) {
-                afterPost(error, req, res, req.params.id);
+            }, function () {
+                res.redirect('http://' + req.get('host') + '/classrooms');
             }
         );
     });
-
 function afterPost(error, req, res, id) {
     if (error) {
         console.log('error', error)
