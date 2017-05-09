@@ -18,24 +18,24 @@ var updateClassroom = '&function=updateClassroom';
 var reserveClassroom = '&function=reserveClassroom';
 var searchClassroom = '&function=searchClassrooms';
 
-var get_classroom_error_msg = 'Missing parameters. Function getClassroom requires: id.';
-var add_classroom_error_msg = 'Missing parameters. Function addClassroom requires: building, room, capacity.';
-var delete_classroom_error_msg = 'Missing parameters. Function deleteClassroom requires: id.';
-var update_classroom_error_msg = 'Missing parameters. Function updateClassroom requires: id.';
+var error_message = "The function parameters missing are ";
+
 var updateClassroomTest = function (base_url) {
     describe('updateClassroom', function() {
         describe('test1', function() {
             it('should return false for no parameter', function (done) {
                 request.post({url:base_url+updateClassroom, form: {}}, function (err, res, body){
-                    expect(JSON.parse(body)).to.equal(update_classroom_error_msg);
+                    var result = JSON.parse(body);
+                    expect(result["error"]).to.equal(error_message+"id,building,room,capacity");
                     done();
                 });
             });
         } );
         describe('test2', function() {
             it('should return false when the system update a classroom that does not exist. ', function (done) {
-                request.post({url:base_url+updateClassroom, form: {id:12222222222, capacity:40, rmNumber:3, bid:10}}, function (err, res, body){
-                    expect(JSON.parse(body)).to.equal(update_classroom_error_msg);
+                request.post({url:base_url+updateClassroom, form: {id:12222222222, capacity:40, room:3, building:10}}, function (err, res, body){
+                    var result = JSON.parse(body);
+                    expect(result).to.equal('0 record was updated.');
                     done();
                 });
             });
@@ -75,8 +75,9 @@ var updateClassroomTest = function (base_url) {
         });
         describe('test4', function() {
             it('should return false be with no id', function (done) {
-                request.post({url:base_url+updateClassroom, form: { capacity:40, rmNumber:3, bid:10}}, function (err, res, body){
-                    expect(JSON.parse(body)).to.equal(update_classroom_error_msg);
+                request.post({url:base_url+updateClassroom, form: { capacity:40, room:3, building:10}}, function (err, res, body){
+                    var result = JSON.parse(body);
+                    expect(result["error"]).to.equal(error_message+"id");
                     done();
                 });
             });
@@ -84,7 +85,8 @@ var updateClassroomTest = function (base_url) {
         describe('test5', function() {
             it('should return false be with not enough parameter include id, capacity, rmNumber, bid', function (done) {
                 request.post({url:base_url+updateClassroom, form: {id:1,capacity:40}}, function (err, res, body){
-                    expect(JSON.parse(body)).to.equal(update_classroom_error_msg);
+                    var result = JSON.parse(body);
+                    expect(result["error"]).to.equal(error_message+"building,room");
                     done();
                 });
             });
@@ -111,7 +113,7 @@ var getClassroomTest = function(base_url) {
     describe('getClassroom', function() {
         describe('test1', function() {
             it('should return 200 for correct request', function (done) {
-                request.get(base_url + getClassroom + '&id=1', function (err, res, body) {
+                request.get(base_url + getClassroom + '&id=2', function (err, res, body) {
                     expect(res.statusCode).to.equal(200);
                     done();
                 });
@@ -120,7 +122,8 @@ var getClassroomTest = function(base_url) {
         describe('test2', function() {
             it('should return false for a request missing parameter', function (done) {
                 request.get(base_url + getClassroom , function (err, res, body) {
-                    expect(JSON.parse(body)).to.equal(get_classroom_error_msg);
+                    var result = JSON.parse(body);
+                    expect(result["error"]).to.equal(error_message+"id");
                     done();
                 });
             });
@@ -129,11 +132,8 @@ var getClassroomTest = function(base_url) {
             it('Should get a classroom with id =1', function (done) {
                 request.get(base_url + getClassroom + '&id=1', function (err, res, body) {
                     expect(res.statusCode).to.equal(200);
-                    //console.log(JSON.parse(res.body));
                     var classroom = JSON.parse(res.body);
                     expect(classroom['ID']).to.equal(1);
-                    //expect(classroom['NAME']).to.equal("Device 1");
-                    //expect(classroom['USER_ID']).to.equal(1);
                     done();
                 });
             });
@@ -163,7 +163,8 @@ var addClassroomTest = function(base_url) {
         describe('test1', function() {
             it('should return false for no parameter', function (done) {
                 request.post({url:base_url+addClassroom, form: {}}, function (err, res, body){
-                    expect(JSON.parse(body)).to.equal(add_classroom_error_msg);
+                    var result = JSON.parse(body);
+                    expect(result["error"]).to.equal(error_message+"building,room,capacity");
                     done();
                 });
             });
@@ -171,7 +172,8 @@ var addClassroomTest = function(base_url) {
         describe('test2', function() {
             it('should return false with missing building parameter', function (done) {
                 request.post({url:base_url+addClassroom, form: {room:2,capacity:144}}, function (err, res, body){
-                    expect(JSON.parse(body)).to.equal(add_classroom_error_msg);
+                    var result = JSON.parse(body);
+                    expect(result["error"]).to.equal(error_message+"building");
                     done();
                 });
             });
@@ -211,7 +213,8 @@ var addClassroomTest = function(base_url) {
         describe('test4', function() {
             it('should return false with missing capacity parameter', function (done) {
                 request.post({url:base_url+addClassroom, form: {building:5, room:2}}, function (err, res, body){
-                    expect(JSON.parse(body)).to.equal(add_classroom_error_msg);
+                    var result = JSON.parse(body);
+                    expect(result["error"]).to.equal(error_message+"capacity");
                     done();
                 });
             });
@@ -219,7 +222,8 @@ var addClassroomTest = function(base_url) {
         describe('test5', function() {
             it('should return false with missing room parameter', function (done) {
                 request.post({url:base_url+addClassroom, form: {building:5, capacity:144}}, function (err, res, body){
-                    expect(JSON.parse(body)).to.equal(add_classroom_error_msg);
+                    var result = JSON.parse(body);
+                    expect(result["error"]).to.equal(error_message+"room");
                     done();
                 });
             });
@@ -235,7 +239,8 @@ var deleteClassroomTest = function (base_url) {
             it('should return false for no parameter', function (done) {
                 request.post({url:base_url+deleteClassroom, form: {}}, function (err, res, body){
                     expect(res.statusCode).to.equal(200);
-                    expect(JSON.parse(body)).to.equal(delete_classroom_error_msg);
+                    var result = JSON.parse(body);
+                    expect(result["error"]).to.equal(error_message+"id");
                     done();
                 });
             });
@@ -284,23 +289,6 @@ var deleteClassroomTest = function (base_url) {
 
 var reserveClassroomTest = function (base_url) {
     describe('deleteClassroom', function() {
-        //describe('test1', function() {
-        //    it('should return false for no parameter', function (done) {
-        //        request.post({url:base_url+deleteClassroom, form: {}}, function (err, res, body){
-        //            expect(res.statusCode).to.equal(200);
-        //            expect(JSON.parse(body)).to.equal(delete_classroom_error_msg);
-        //            done();
-        //        });
-        //    });
-        //} );
-        //describe('test2', function() {
-        //    it('should return 500 if system delete a classroom that doesn exist', function (done) {
-        //        request.post({url:base_url+deleteClassroom, form: {id:11111111}}, function (err, res, body){
-        //            expect(body).to.equal('{}');
-        //            done();
-        //        });
-        //    });
-        //});
         describe('test3', function() {
             it('should delete last classroom in the list ', function (done) {
                 var classroomToAdd;
