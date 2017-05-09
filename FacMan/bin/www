@@ -96,24 +96,65 @@ function onListening() {
  var TwitterBot = require("node-twitterbot").TwitterBot;
  var bot = new TwitterBot("twitterbot.json");
  var weatherPayload = "";
+ var weathermoji = "";
+ var alertPayload = "";
 
- var tweetAction = bot.addAction("tweet", function(twitter, action, tweet) {
+// An hourly general weather update is tweeted.
+ var genWeatherAction = bot.addAction("tweet", function(twitter, action, tweet) {
    var xhttp = new XMLHttpRequest();
    xhttp.onreadystatechange = function() {
      if (this.readyState == 4 && this.status == 200) {
        weatherPayload = JSON.parse(this.responseText);
        if(weatherPayload.weather) {
-         bot.tweet("Weather report: " + weatherPayload.weather[0].main + " with a temperature of " + Math.round(parseInt(weatherPayload.main.temp) * (9/5) - 459.67) + "°F");
+         if(weatherPayload.weather[0].main == "Clear") {
+           weathermoji = " ☀️";
+         }
+         else if(weatherPayload.weather[0].main == "Clouds") {
+           weathermoji = " ☁️";
+         }
+         else if(weatherPayload.weather[0].main == "Rain" || weatherPayload.weather[0].main == "Drizzle") {
+           weathermoji = " 🌧️";
+         }
+         else if(weatherPayload.weather[0].main == "Thunderstorm") {
+           weathermoji = " 🌩️";
+         }
+         else {
+           weathermoji = "";
+         }
+         bot.tweet("Weather Report: " + weatherPayload.weather[0].main + weathermoji + " with a temperature of " + Math.round(parseInt(weatherPayload.main.temp) * (9/5) - 459.67) + "°F");
        }
      }
    };
    xhttp.open("GET", "http://api.openweathermap.org/data/2.5/weather?zip=14623&APPID=26a0348ecbedeb0af1fbf314d9c0529f", true);
    xhttp.send();
  });
-bot.now(tweetAction);
+bot.now(genWeatherAction);
 
-var tweetTime = function() {
-  bot.now(tweetAction);
+// Tweet alert if wind gets at or above 10mph (~4.5m/s).
+var windAlertAction = bot.addAction("windAlert", function(twitter, action, tweet) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      alertPayload = JSON.parse(this.responseText);
+      if(alertPayload.weather) {
+        if(alertPayload.wind.speed >= 4.5) {
+          bot.tweet("Alert! " + "Winds of " + (alertPayload.wind.speed / 0.44704).toFixed(1) + "mph 🌬️");
+        }
+      }
+    }
+  };
+  xhttp.open("GET", "http://api.openweathermap.org/data/2.5/weather?zip=14623&APPID=26a0348ecbedeb0af1fbf314d9c0529f", true);
+  xhttp.send();
+});
+bot.now(windAlertAction);
+
+var tweetWeather = function() {
+  bot.now(genWeatherAction);
 };
 
-setInterval(tweetTime, 3600000); // 1000ms/second * 60 seconds/min * 60 min/hour = hourly tweet
+var tweetWindAlert = function() {
+  bot.now(windAlertAction);
+};
+
+setInterval(tweetWeather, 3600000); // 1000ms/second * 60 seconds/min * 60 min/hour = hourly tweet
+setInterval(tweetWindAlert, 300000); // 1000ms/second * 60 seconds/min * 5 min = poll 5 minutes for wind and possibly tweet

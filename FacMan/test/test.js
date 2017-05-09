@@ -26,5 +26,5 @@ classroomTest.getClassrooms(base_url);
 classroomTest.getClassroom(base_url);
 classroomTest.addClassroom(base_url);
 classroomTest.deleteClassroom(base_url);
-//classroomTest.reserveClassroom(base_url);
+classroomTest.reserveClassroom(base_url);
 

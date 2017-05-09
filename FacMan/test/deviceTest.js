@@ -58,7 +58,7 @@ var updateDeviceTest = function(base_url) {
                         })
                     },
                     function(callback) {
-                        request.post({url:base_url+updateDevice, form: {id:deviceToUpdate.ID, condition:'very good',checkoutDate:'11/11/2017' ,checkedOUT:"true",name:'IPhone8',returnData:"12/12/2017",userId:"15"}}, function (err, res, body){
+                        request.post({url:base_url+updateDevice, form: {id:deviceToUpdate.ID, condition:'very good',checkoutDate:'11/11/2017' ,checkedOut:"true",name:'IPhone8',returnData:"12/12/2017",userId:"15"}}, function (err, res, body){
                             expect(res.statusCode).to.equal(200);
                             callback();
                         });
