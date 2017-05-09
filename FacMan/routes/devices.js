@@ -55,14 +55,14 @@ router.route('/delete/:id')
 router.route('/reserve/:id')
 	.get(function(req, res, next){
 		var device = getDevice(req);
-
+		var userId= req.cookies['uid'];
 		var returnDate = new Date();
 		returnDate.setMonth(returnDate.getMonth() + 1);
 
 		var url = api + "team=facility_management&function=updateDevice";
 		var data = "id=" + req.params.id + "&name=" + device["NAME"] + 
 					"&condition=" + device["CONDITION"] + "&checkoutDate=" + new Date().toLocaleDateString() + 
-					"&checkedOut=" + 1 + "&returnDate=" + returnDate.toLocaleDateString();
+					"&checkedOut=" + 1 + "&returnDate=" + returnDate.toLocaleDateString()+"&userId="+userId;
 
 		request.post({
 			headers: {'content-type' : 'application/x-www-form-urlencoded'},
