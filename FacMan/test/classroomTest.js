@@ -288,9 +288,9 @@ var deleteClassroomTest = function (base_url) {
 
 
 var reserveClassroomTest = function (base_url) {
-    describe('deleteClassroom', function() {
-        describe('test3', function() {
-            it('should delete last classroom in the list ', function (done) {
+    describe('test both reserveClassroom and searchClassroom', function() {
+        describe('test', function() {
+            it(' ', function (done) {
                 var classroomToAdd;
                 var classroomToReserve;
                 async.series([
@@ -315,7 +315,7 @@ var reserveClassroomTest = function (base_url) {
                     },function(callback) {
                         request.get(base_url + searchClassroom+ '&size=200'+'&semester=1'+'&day="Monday"'+'&length=5', function (err, res, body) {
                             console.log(body);
-                            expect(body).to.notEqual('{}');
+                            expect(Object.keys(JSON.parse(body)).length != 0).to.equal(true);
                             callback();
                         });
                     }
