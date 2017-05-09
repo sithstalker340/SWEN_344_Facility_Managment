@@ -12,15 +12,9 @@ router.get('/:id', function (req, res, next) {
 
     var callbackR = function (error, response, body) {
         //console.log(body);
-        /*         if(body.length != ""){
-         data['reserve'] = JSON.parse(body);
-         for(i in data['reserve']){
-         var urlGetCourse = api + "function=getCourse&team=general&id=" + i;
-         }
-         } */
         data['reserve'] = JSON.parse(body);
 
-        //console.log(data);
+        console.log(body);
 
         res.render('classroom', {"classroom": data});
     };
@@ -48,8 +42,10 @@ router.get('/', function (req, res, next) {
 
 // Add a new reservation
 router.route('/:id/newReservation')
-    .get(function (req, res, next) {
-        //res.render('index');
+        .get(function(req, res, next){
+            res.render('newReservation');
+        }).post(function(req, res, next){
+
         var url = api + "team=facility_management&function=reserveClassroom";
         var data = "id=" + req.body.id + "&day=" + req.body.section + "&section=" + req.body.section + "&timeslot=" + req.body.timeslot + "&length=" + req.body.length;
 
@@ -58,7 +54,7 @@ router.route('/:id/newReservation')
                 url: url,
                 body: data
             }, function (error, response, body) {
-                afterPost(error, req, res, req.param.id);
+                afterPost(error, req, res, req.params.id);
             }
         );
     });
