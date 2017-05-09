@@ -40,6 +40,10 @@ a {
   margin-bottom: 15px;
 }
 
+.top-50{
+  margin-top: 50px;
+}
+
 /* remove default margins from all rows to keep the page from overflowing */
 .row {  
   margin: 0 !important;
