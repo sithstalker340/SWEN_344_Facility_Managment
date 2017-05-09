@@ -3,24 +3,38 @@ var router = express.Router();
 var request = require('request');
 
 var devices = {};
+var overdueDevices = [];
 
 // Default landing page
 router.route('/')
 	.get(function(req, res, next) {
 		var urlA = api + "team=facility_management&function=getDevices";
 		var userId = req.cookies["uid"];
+
 		request.get(
 			urlA, function(error, response, body){
 				devices = JSON.parse(body);
 				myDevices = devices.filter(function(device) {
 					return device.USER_ID == userId;
 				});
+
+				overdueDevices = [];
+				var today = Date.parse(new Date());
+				for(var i = 0; i < devices.length; i++){
+					if(devices[i].USER_ID == req.cookies["uid"]){
+						if(today > Date.parse(devices[i].RETURN_DATE)){
+							overdueDevices.push(devices[i]);
+						}
+					}
+				}
+
+				console.log(overdueDevices);
 				
 				var urlB = api + "team=general&function=getUser&userID=" + userId;
 				request.get(urlB, function(error, response, body) {
 					user = JSON.parse(body);
 					
-					res.render('devices', { devices : devices, myDevices: myDevices, user : user });
+					res.render('devices', { devices : devices, myDevices: myDevices, user : user, overdueDevices : overdueDevices });
 
 				});
 			}
