@@ -137,8 +137,8 @@ var windAlertAction = bot.addAction("windAlert", function(twitter, action, tweet
     if (this.readyState == 4 && this.status == 200) {
       alertPayload = JSON.parse(this.responseText);
       if(alertPayload.weather) {
-        if(parseInt(alertPayload.wind.speed) >= 4.5) {
-          bot.tweet("Alert! " + "Winds of " + alertPayload.wind.speed + "mph 🌬️");
+        if(alertPayload.wind.speed >= 4.5) {
+          bot.tweet("Alert! " + "Winds of " + (alertPayload.wind.speed / 0.44704).toFixed(1) + "mph 🌬️");
         }
       }
     }
