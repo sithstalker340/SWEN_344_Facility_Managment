@@ -1,5 +1,15 @@
 <div>
 	<div class="text-capitalize">
+		<% if(overdueDevices.length > 0) { %>
+		<div class="row alert alert-info">
+			The following device<%if(overdueDevices.length > 1){%>s are<%} else {%> is <%}%> overdue:
+			<ui>
+			<% for(var i = 0; i < overdueDevices.length; i++) { %>
+				<li><%= overdueDevices[i].NAME %></li>					
+			<% } %>
+			</ui>
+		</div>
+		<% }%>
 		<div class="row">
 			<h3 class="col-xs-3 pull-left">my devices</h3>
 		</div>
