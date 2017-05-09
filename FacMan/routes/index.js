@@ -43,7 +43,8 @@ router.route('/register')
 		request.get(
 			url, function(error, response, body){
 				users = JSON.parse(body);
-				res.render('register', { users : users });
+				console.log(users);
+				res.render('register', {hasError : false, error : ''});
 			}
 		);
 	})
@@ -53,21 +54,36 @@ router.route('/register')
 					"&fname=" + req.body.fname + "&lname=" + req.body.lname + 
 					"&email=" + req.body.email + "&role=" + req.body.role;
 
-		request.post({
-			headers: {'content-type' : 'application/x-www-form-urlencoded'},
-			url: url,
-			body: data
-		}, function(error, response, body){
-			if(error){
-				console.log('error', error)
+		request.get(
+			api + "team=general&function=getUsers", function(error, response, body){
+				users = JSON.parse(body);
 			}
+		);
+		var user = users.filter(function ( obj ) {
+		    return obj.USERNAME == req.body.username;
+		})[0];
 
-			if(response && response.statusCode){
-				console.log(response.statusCode);
-				res.redirect('http://' + req.get('host') + '/classrooms');
-			}
+		console.log(user);
+
+		if(user === undefined || user === null){
+			request.post({
+				headers: {'content-type' : 'application/x-www-form-urlencoded'},
+				url: url,
+				body: data
+			}, function(error, response, body){
+				if(error){
+					console.log('error', error)
+				}
+
+				if(response && response.statusCode){
+					console.log(response.statusCode);
+					res.redirect('http://' + req.get('host') + '/classrooms');
+				}
+			});
+		} else {
+			res.render('register', {hasError: true, error : 'Username already exists. Please select a different username.'});
 		}
-	);
+
 });
 
 
