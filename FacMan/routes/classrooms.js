@@ -49,24 +49,22 @@ router.get('/', function (req, res, next) {
 // Add a new reservation
 router.route('/:id/newReservation')
     .get(function (req, res, next) {
-        res.render('index');
+        //res.render('index');
+        var url = api + "team=facility_management&function=reserveClassroom";
+        var data = "id=" + req.body.id + "&day=" + req.body.section + "&section=" + req.body.section + "&timeslot=" + req.body.timeslot + "&length=" + req.body.length;
 
-    }).post(function (req, res, next) {
-    var url = api + "team=facility_management&function=reserveClassroom";
-    var data = "id=" + req.body.id + "&day=" + req.body.section + "&day=" + req.body.section + "&timeslot=" + req.body.timeslot + "&length=" + req.body.length;
+        request.post({
+                headers: {'content-type': 'application/x-www-form-urlencoded'},
+                url: url,
+                body: data
+            }, function (error, response, body) {
+                afterPost(error, req, res, req.param.id);
+            }
+        );
+    });
 
-    request.post({
-            headers: {'content-type': 'application/x-www-form-urlencoded'},
-            url: url,
-            body: data
-        }, function (error, response, body) {
-           afterPost(error, req, res, req.param.id);
-        }
-    );
-});
-
-function afterPost(error, req, res, id){
-    if(error){
+function afterPost(error, req, res, id) {
+    if (error) {
         console.log('error', error)
     }
 
