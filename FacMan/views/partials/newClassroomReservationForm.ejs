@@ -1,22 +1,21 @@
 <div class="top-50">
-	<form method="post" class="col-xs-6 col-sm-5 col-xs-offset-2 col-sm-offset-3">
+	<form method="post" class="col-xs-6 col-sm-5 col-xs-offset-2 col-sm-offset-3" action="./newReservation">
 		<h3>New Classroom Reservation</h3>
+        <input hidden name="day" value="<%= formVals['day'] %>" />
+        <input hidden name="section" value="<%= formVals['section'] %>" />
+        <input hidden name="length" value="<%= formVals['length'] %>" />
         <div class="form-group">
-            <label for="day">Day</label>
-            <input class="form-control" type="text" name="day">
+            <label for="timeslot">Start Time</label>
+			<% if (roomTimes.length > 0) { %>
+				<select class="form-control" name="timeslot">
+					<% for (i = 0; i < roomTimes.length; i++)  { %>
+						<option value="<%= roomTimes[i] %>"><%= timeVals[roomTimes[i]] %></option>
+					<% } %>
+				</select>
+			<% } else {%>
+			
+			<% } %>
         </div>
-        <div class="form-group">
-            <label for="section">Section</label>
-            <input class="form-control" type="text" name="section">
-        </div>
-        <div class="form-group">
-            <label for="timeslot">Time slot</label>
-            <input class="form-control" type="text" name="timeslot">
-        </div>
-        <div class="form-group">
-            <label for="length">Duration</label>
-            <input class="form-control" type="text" name="length">
-        </div>
-		<button type="submit" class="btn btn-primary pull-right">Submit</button>
+		<button type="submit" class="btn btn-primary pull-right">Reserve Room</button>
 	</form>
 </div>
