@@ -4,6 +4,7 @@
             <thead>
             <tr>
                 <th>Time Slot Start</th>
+                <th>Section</th>
                 <th>Duration</th>
                 <th>Day of Week</th>
             </tr>
@@ -12,6 +13,7 @@
             <% for (var i = 0; i < Object.keys(classroom["reserve"]).length; i++) { %>
             <tr>
                 <td><%= classroom["reserve"][i]["TIME_SLOT_START"] %></td>
+                <td><%= classroom["reserve"][i]["SECTION_ID"] %></td>
                 <td><%= classroom["reserve"][i]["DURATION"] %></td>
                 <td><%= classroom["reserve"][i]["DAY_OF_WEEK"] %></td>
             </tr>

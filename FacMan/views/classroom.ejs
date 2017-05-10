@@ -13,19 +13,29 @@
 
         <div class="col-xs-8 col-sm-9 col-md-9 col-lg-10">
             <div class="row">
-                <h2>Classroom <%=classroom["classroom"]["ID"] %></h2>
-                <button  class="btn" onclick="document.location.href += '/newReservation'">Make Reservations</button>
-                <button class="btn" onclick="document.location.href += '/delete'">Delete Classroom</button>
+                <div class="pull-left"><h2>Classroom <%=classroom["classroom"]["ID"] %></h2></div>
+                <div class="pull-right new-device">
+                    <button class="btn btn-default" onclick="document.location.href += '/newReservation'"><span class="glyphicon glyphicon-plus"></span>Make Reservations</button>
+                    <button class="btn btn-danger" onclick="document.location.href += '/delete'">Delete Classroom</button>
+                </div>
             </div>
-            <dl>
-                <dt ><strong>Building ID:</strong></dt> <dd><%= classroom["classroom"]["BUILDING_ID"] %></dd>
-                <dt><strong>Room Number:</strong></dt> <dd><%= classroom["classroom"]["ROOM_NUM"] %></dd>
-                <dt><strong>Capacity:</strong></dt> <dd><%= classroom["classroom"]["CAPACITY"] %></dd>
-            </dl>
+            <div class="row">
+                <span class="h4-text"><b>Building ID: </b> 
+                <%= classroom["classroom"]["BUILDING_ID"] %></span>
+            </div>
+            <div class="row">
+                <span class="h4-text"><b>Room Number: </b>
+                <%= classroom["classroom"]["ROOM_NUM"] %></span>
+            </div>
+            <div class="row">
+                <span class="h4-text"><b>Capacity: </b>
+                <%= classroom["classroom"]["CAPACITY"] %></span>
+            </div>
+            <hr>
             <%if(Object.keys(classroom["reserve"]).length > 0){%>
-                <p><strong>Reservations for this Classroom:</strong></p>
+                <h3>Reservations for this Classroom</h3>
                 <% include ../views/partials/reservationList %>
-                <% } %>
+            <% } %>
         </div>
     </div>
 

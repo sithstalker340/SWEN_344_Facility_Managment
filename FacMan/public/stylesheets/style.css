@@ -44,6 +44,9 @@ a {
   margin-top: 50px;
 }
 
+.h4-text {
+  font-size: 18px;
+}
 /* remove default margins from all rows to keep the page from overflowing */
 .row {  
   margin: 0 !important;
