@@ -100,8 +100,9 @@ router.route('/:id/getAvailableTimes')
 				var times = JSON.parse(body);
 				console.log(times);
 				var roomTimes = times[req.params.id];
-				if (roomTimes == undefined) {
-					res.render('getAvailableTimes', {"error" : "Sorry, there are no available timeslots."})
+				if (roomTimes.length < 1) {
+					res.render('getAvailableTimes', {"error" : "Sorry, there are no available timeslots."});
+					return;
 				}
 				roomTimes = roomTimes.filter(function(time) {
 					for (i = req.body.duration; i > 0; i++) {
