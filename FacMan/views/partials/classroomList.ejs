@@ -11,6 +11,7 @@
 	      		<tr>
 			        <th>building</th>
 			        <th>room number</th>
+			        <th>capacity</th>
 	      		</tr>
 		    </thead>
 		    <tbody>
@@ -18,6 +19,7 @@
 					<tr class="classroomListing" onclick="document.location.href += '/<%= classrooms[i]["ID"] %>';" >
 						<td><%= classrooms[i]["BUILDING_ID"] %></td>
 						<td><%= classrooms[i]["ROOM_NUM"] %></td>
+						<td><%= classrooms[i]["CAPACITY"] %></td>
 					</tr>
 				<% } %>
 		    </tbody>

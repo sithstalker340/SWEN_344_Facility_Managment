@@ -39,7 +39,11 @@
             <%if(Object.keys(classroom["reserve"]).length > 0){%>
                 <h3>Reservations for this Classroom</h3>
                 <% include ../views/partials/reservationList %>
-            <% } %>
+            <% } else {%>
+                <div class="row text-center">
+                    <h4>No reserved devices</h4>
+                </div>
+            <% }%>
         </div>
     </div>
 
