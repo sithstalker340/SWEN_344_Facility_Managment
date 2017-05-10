@@ -125,7 +125,9 @@
 						</td>
 						<td>
 							<% if(devices[i]["CHECKED_OUT"] !== 0) { %>
-								<button class="btn btn-success" onclick="document.location.href += '/return' + '/<%= devices[i]["ID"] %>';">Return</button>
+								<% if (user.ROLE == "Admin" || myDevices.indexOf(devices[i]) > -1) { %>
+									<button class="btn btn-success" onclick="document.location.href += '/return' + '/<%= devices[i]["ID"] %>';">Return</button>
+								<% }%>
 							<% } else { %>
 								<button class="btn btn-success" onclick="document.location.href += '/reserve' + '/<%= devices[i]["ID"] %>';">Reserve</button>
 							<% }%>
