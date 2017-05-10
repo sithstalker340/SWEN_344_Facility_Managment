@@ -1,6 +1,11 @@
 <div>
 	<div class="text-capitalize">
-		<h3 class="col-xs-3 pull-left" style="white-space: nowrap;">classroom list</h3>
+		<div class="row">
+			<h3 class="col-xs-3 pull-left" style="white-space: nowrap;">classroom list</h3>
+			<% if (user.ROLE == "Admin") { %>
+				<button class="btn btn-default pull-right new-device" onclick="document.location.href += '/newClassroom'"><span class="glyphicon glyphicon-plus"></span>Add Classroom</button>
+			<% } %>
+		</div>
 		<table class="classroom-list table table-striped">
 		    <thead>
 	      		<tr>
