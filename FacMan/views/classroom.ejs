@@ -16,7 +16,9 @@
                 <div class="pull-left"><h2>Classroom <%=classroom["classroom"]["ID"] %></h2></div>
                 <div class="pull-right new-device">
                     <button class="btn btn-default" onclick="document.location.href += '/newReservation'"><span class="glyphicon glyphicon-plus"></span>Make Reservations</button>
-                    <button class="btn btn-danger" onclick="document.location.href += '/delete'">Delete Classroom</button>
+                    <% if (user.ROLE == "Admin") { %>
+                        <button class="btn btn-danger" onclick="document.location.href += '/delete'">Delete Classroom</button>
+                    <% }%>
                 </div>
             </div>
             <div class="row">
