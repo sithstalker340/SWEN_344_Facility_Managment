@@ -2,6 +2,7 @@
 	<div class="text-capitalize">
 		<div class="row">
 			<h3 class="col-xs-3 pull-left" style="white-space: nowrap;">classroom list</h3>
+			<% console.log(user) %>
 			<% if (user.ROLE == "Admin") { %>
 				<button class="btn btn-default pull-right new-device" onclick="document.location.href += '/newClassroom'"><span class="glyphicon glyphicon-plus"></span>Add Classroom</button>
 			<% } %>
