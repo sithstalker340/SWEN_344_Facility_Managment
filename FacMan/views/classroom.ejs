@@ -13,9 +13,11 @@
 
         <div class="col-xs-8 col-sm-9 col-md-9 col-lg-10">
             <div class="row">
-                <div class="pull-left"><h2>Classroom <%=classroom["classroom"]["ID"] %></h2></div>
+                <div class="pull-left"><h3><b>Classroom <%=classroom["classroom"]["ID"] %></b></h3></div>
                 <div class="pull-right new-device">
+                    <% if (user.ROLE != "Student") { %>
                     <button class="btn btn-default" onclick="document.location.href += '/newReservation'"><span class="glyphicon glyphicon-plus"></span>Make Reservations</button>
+                    <% }%>
                     <% if (user.ROLE == "Admin") { %>
                         <button class="btn btn-danger" onclick="document.location.href += '/delete'">Delete Classroom</button>
                     <% }%>
